@@ -5,8 +5,18 @@ using System.Reflection;
 
 namespace SimpleLed
 {
+    /// <summary>
+    /// Extensions to provide helper classes
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Get a LED colour from a H/S/V value
+        /// </summary>
+        /// <param name="hue">Hue</param>
+        /// <param name="saturation">Saturation</param>
+        /// <param name="value">Value</param>
+        /// <returns>LEDColor</returns>
         public static LEDColor ColorFromHSV(double hue, double saturation, double value)
         {
             int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
@@ -32,6 +42,12 @@ namespace SimpleLed
                 return new LEDColor(v, p, q);
         }
 
+        /// <summary>
+        /// Simplifies getting embedded resource PNGs for use as the device image
+        /// </summary>
+        /// <param name="myAssembly"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static Bitmap GetEmbeddedImage(this Assembly myAssembly, string path)
         {
             using (Stream myStream = myAssembly.GetManifestResourceStream(path))

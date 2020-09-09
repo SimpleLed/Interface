@@ -7,16 +7,27 @@ using System.Linq;
 
 namespace SimpleLed
 {
+    /// <summary>
+    /// Manager for SimpleLed drivers
+    /// </summary>
     public class SLSManager
     {
         private string configPath;
         public List<ISimpleLed> Drivers = new List<ISimpleLed>();
 
+        /// <summary>
+        /// Initialise a new instance of the SLSManager.
+        /// </summary>
+        /// <param name="cfgPath">Path where configs are stored by the drivers</param>
         public SLSManager(string cfgPath)
         {
             configPath = cfgPath;
         }
 
+        /// <summary>
+        /// Gets a List of all the devices provided by the loaded SimpleLed Drivers
+        /// </summary>
+        /// <returns>List of ControlDevice</returns>
         public List<ControlDevice> GetDevices()
         {
             List<ControlDevice> controlDevices = new List<ControlDevice>();
@@ -39,6 +50,9 @@ namespace SimpleLed
             return controlDevices;
         }
 
+        /// <summary>
+        /// Runs the initial non-constructor setup for all loaded SimpleLed drivers.
+        /// </summary>
         public void Init()
         {
             foreach (var simpleLedDriver in Drivers)
@@ -47,6 +61,9 @@ namespace SimpleLed
             }
         }
 
+        /// <summary>
+        /// Loads config for all loaded SimpleLed drivers
+        /// </summary>
         public void LoadConfigs()
         {
             foreach (ISimpleLedWithConfig simpleLedDriver in Drivers.OfType<ISimpleLedWithConfig>())
@@ -55,6 +72,9 @@ namespace SimpleLed
             }
         }
 
+        /// <summary>
+        /// Saves config for all loaded SimpleLed drivers
+        /// </summary>
         public void SaveConfigs()
         {
             foreach (ISimpleLedWithConfig simpleLedDriver in Drivers.OfType<ISimpleLedWithConfig>())
@@ -63,6 +83,10 @@ namespace SimpleLed
             }
         }
 
+        /// <summary>
+        /// Load config for a specific device
+        /// </summary>
+        /// <param name="simpleLed">device to load config for</param>
         public void LoadConfig(ISimpleLedWithConfig simpleLed)
         {
             string path = configPath + "\\" + simpleLed.GetProperties().Id + "_config.json";
@@ -76,6 +100,10 @@ namespace SimpleLed
             simpleLed.PutConfig(data);
         }
 
+        /// <summary>
+        /// Save config for a specific device
+        /// </summary>
+        /// <param name="simpleLed">device to save config for</param>
         public void SaveConfig(ISimpleLedWithConfig simpleLed)
         {
             simpleLed.SetIsDirty(false);

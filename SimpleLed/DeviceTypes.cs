@@ -1,5 +1,8 @@
 ﻿namespace SimpleLed
 {
+    /// <summary>
+    /// List of Const DeviceType strings to enable consistency.
+    /// </summary>
     public static class DeviceTypes
     {
         //Output Devices
