@@ -1,0 +1,306 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/james/source/repos/Org/SimpleLed/Interface/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.BaseViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.BaseViewModel.html",
+          "hash": "VLv5TRapYq7pd3lB5D1xxg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ControlDevice.LEDData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ControlDevice.LEDData.html",
+          "hash": "s+XI2CFgXc6QzecopnLNAQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ControlDevice.LedUnit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ControlDevice.LedUnit.html",
+          "hash": "6QEbaxhy4PdnjdKNN41wXw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ControlDevice.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ControlDevice.html",
+          "hash": "3WfYa5iO+7ZqFb95eUmqqQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.DeviceTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.DeviceTypes.html",
+          "hash": "na4ddxQZN42gB0E+ReN9HQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.DriverDetails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.DriverDetails.html",
+          "hash": "enQDXTd4mEFBGo8X9Rp1ug=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.DriverProperties.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.DriverProperties.html",
+          "hash": "bmAfrZb488oDYR3IckyNpQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.Extensions.html",
+          "hash": "oS1q6wuCQOZTpY6E0jdyzQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.IBindable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.IBindable.html",
+          "hash": "7LdBnPssd3t/BNDXywkkzg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ISimpleLed.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ISimpleLed.html",
+          "hash": "7fhsYU2fvi4n83uOQDoQYQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ISimpleLedWithConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ISimpleLedWithConfig.html",
+          "hash": "4EuEEGgr/dn2MspOyzcOsA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.LEDColor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.LEDColor.html",
+          "hash": "XNcUSaAvUokhbvjwa1r3XQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.SLSConfigData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.SLSConfigData.html",
+          "hash": "snG+4RhnRKv2TUHDoRv1FA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.SLSManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.SLSManager.html",
+          "hash": "nzMRZv2YC66q19uw1uKTPA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.html",
+          "hash": "2nmuu4EAmJKxyzfx0+ziCA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "igemvUQ0B50l3l2I2eaJYQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "Q6baJg9ofy0qMfqSOkPojA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "lRqCH2V+wK0290ioI7P0jQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "gB8AESyvNru97tzIZofEEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "L4d3BtOn1ynikO0kyXYSQQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "+rHUkRZHZRi5gd1aTU6lJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 15,
+          "skipped_file_count": 15
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
