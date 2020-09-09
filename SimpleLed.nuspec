@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0</version>
+    <title>SimpleLed</title>
+    <authors>James Johnston</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/madninjaskillz/Simple-LED-SDK</projectUrl>
+    <iconUrl>https://github.com/madninjaskillz/Simple-LED-SDK/raw/master/simpleLedLogo.png</iconUrl>
+    <description>A standardised interface for RGB devices and plugin effects used to drive them.</description>
+    <releaseNotes>Initial Release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>RGB LED</tags>
+        <dependencies>
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+  </metadata>
+</package>
