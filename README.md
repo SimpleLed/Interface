@@ -16,5 +16,5 @@ It is trivial to port a driver from RGB.NET to SimpleLed as they share a number 
 
 ### JackNet RGBSync
 
-The next version of [RGB Sync](https://github.com/rgbsync) has migrated from RGB.Net to SimpleLed and in doing so has had a huge overhaul because of the advanced functionality meaning a simplified user experience and leveraging SimpleLeds "source driver" concept.
+The next version of [RGB Sync](https://Rgbsync.com) has migrated from RGB.Net to SimpleLed and in doing so has had a huge overhaul because of the advanced functionality meaning a simplified user experience and leveraging SimpleLeds "source driver" concept.
 
