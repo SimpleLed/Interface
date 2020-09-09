@@ -62,9 +62,16 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="simpleled">SimpleLed</h1>
 
-<p>SimpleLed is a simple interface to develop &quot;drivers&quot; for RGB hardware, such as motherboards or USB fan controllers. It is designed as a simple and singular interface to sit on top of the myriad of protocols and transports that is the RGB landscape right now.</p>
+<p>API Documentation available at our <a href="https://simpleled.github.io/Interface/">Github Pages</a></p>
+<h2 id="overview">Overview</h2>
+<p>the SimpleLed SDK (SLS) is a simple but powerful interface to develop &quot;drivers&quot; for RGB hardware, such as motherboards or USB fan controllers. It is designed as a simple and singular interface to sit on top of the myriad of protocols and transports that is the RGB landscape right now. It also allows the creation of &quot;source drivers&quot; - which do not connect to real hardware but act as a source, simulating a device.</p>
 <h2 id="inspiration">Inspiration</h2>
-<p>SimpleLed is highly inspired by <a href="https://github.com/DarthAffe/RGB.NET">RGB.Net</a> which already sets out to acheive the same goal as SimpleLed. Where SimpleLed deviates is the RGB.NET has many abstractions and layers that simply are not required for the vast majority of RGB applications and this complicated creating drivers. It is trivial to port a driver from RGB.NET to SimpleLed as they share a number of common patterns. Currently if you wish for 2D animations etc, RGB.NET is probably the better choice, though this is something we are working towards. We are also working towards offering an RGB.NET driver for SimpleLed allowing you to load RGB.NET drivers into SimpleLed supporting apps and we may even offer the reverse, loading SimpleLed drivers into RGB.NET supported applications</p>
+<p>SimpleLed is highly inspired by <a href="https://github.com/DarthAffe/RGB.NET">RGB.Net</a> which already sets out to acheive the same goal as SimpleLed. Where SimpleLed deviates is RGB.NET has many abstractions and layers that simply are not required for the vast majority of RGB applications and this complicated creating drivers. SimpleLed strives to offer a powerful platform that is as slim as possible, simplifying both creating new drivers and the consumption of them.</p>
+<h2 id="rgbnet-porting">RGB.NET porting</h2>
+<p>It is trivial to port a driver from RGB.NET to SimpleLed as they share a number of common patterns. Currently if you wish for 2D animations (mainly used on keyboards) etc, RGB.NET is probably the better choice, though this is something we are working towards. We are also working towards offering an RGB.NET driver for SimpleLed allowing you to load RGB.NET drivers into SimpleLed supporting apps and we may even offer the reverse, loading SimpleLed drivers into RGB.NET supported applications.</p>
+<h2 id="projects-using-simpleled">Projects using SimpleLed</h2>
+<h3 id="jacknet-rgbsync">JackNet RGBSync</h3>
+<p>The next version of <a href="https://github.com/rgbsync">RGB Sync</a> has migrated from RGB.Net to SimpleLed and in doing so has had a huge overhaul because of the advanced functionality meaning a simplified user experience and leveraging SimpleLeds &quot;source driver&quot; concept.</p>
 </article>
           </div>
           
