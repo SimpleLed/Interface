@@ -122,6 +122,58 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.GetLedUID
   nameWithType: ControlDevice.GetLedUID
+- uid: SimpleLed.ControlDevice.GridHeight
+  name: GridHeight
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridHeight
+  commentId: P:SimpleLed.ControlDevice.GridHeight
+  fullName: SimpleLed.ControlDevice.GridHeight
+  nameWithType: ControlDevice.GridHeight
+- uid: SimpleLed.ControlDevice.GridHeight*
+  name: GridHeight
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridHeight_
+  commentId: Overload:SimpleLed.ControlDevice.GridHeight
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.GridHeight
+  nameWithType: ControlDevice.GridHeight
+- uid: SimpleLed.ControlDevice.GridLEDs
+  name: GridLEDs
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridLEDs
+  commentId: P:SimpleLed.ControlDevice.GridLEDs
+  fullName: SimpleLed.ControlDevice.GridLEDs
+  nameWithType: ControlDevice.GridLEDs
+- uid: SimpleLed.ControlDevice.GridLEDs*
+  name: GridLEDs
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridLEDs_
+  commentId: Overload:SimpleLed.ControlDevice.GridLEDs
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.GridLEDs
+  nameWithType: ControlDevice.GridLEDs
+- uid: SimpleLed.ControlDevice.GridWidth
+  name: GridWidth
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridWidth
+  commentId: P:SimpleLed.ControlDevice.GridWidth
+  fullName: SimpleLed.ControlDevice.GridWidth
+  nameWithType: ControlDevice.GridWidth
+- uid: SimpleLed.ControlDevice.GridWidth*
+  name: GridWidth
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridWidth_
+  commentId: Overload:SimpleLed.ControlDevice.GridWidth
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.GridWidth
+  nameWithType: ControlDevice.GridWidth
+- uid: SimpleLed.ControlDevice.Has2DSupport
+  name: Has2DSupport
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_Has2DSupport
+  commentId: P:SimpleLed.ControlDevice.Has2DSupport
+  fullName: SimpleLed.ControlDevice.Has2DSupport
+  nameWithType: ControlDevice.Has2DSupport
+- uid: SimpleLed.ControlDevice.Has2DSupport*
+  name: Has2DSupport
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_Has2DSupport_
+  commentId: Overload:SimpleLed.ControlDevice.Has2DSupport
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.Has2DSupport
+  nameWithType: ControlDevice.Has2DSupport
 - uid: SimpleLed.ControlDevice.LEDData
   name: ControlDevice.LEDData
   href: api/SimpleLed.ControlDevice.LEDData.html

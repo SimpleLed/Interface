@@ -9,6 +9,19 @@ namespace SimpleLed
     /// </summary>
     public class ControlDevice
     {
+
+        /// <summary>
+        /// Signifies if this device can handle 2d led arrays
+        /// </summary>
+        public bool Has2DSupport { get; set; }
+        /// <summary>
+        /// if this device has 2d support, this signifies the width of the 2d grid
+        /// </summary>
+        public int GridWidth { get; set; }
+        /// <summary>
+        /// if this device has 2d support, this signifies the height of the 2d grid
+        /// </summary>
+        public int GridHeight { get; set; }
         /// <summary>
         /// Name of device
         /// </summary>
@@ -25,6 +38,11 @@ namespace SimpleLed
         /// Array of LedUnits provided by this device
         /// </summary>
         public LedUnit[] LEDs { get; set; }
+
+        /// <summary>
+        /// If device supports 2d grids, this allows direct access to LEDs via X/Y coords
+        /// </summary>
+        public LedUnit[,] GridLEDs { get; set; }
         /// <summary>
         /// Amount of LEDs to shift by upon mapping to correct orientation differences.
         /// </summary>
@@ -48,23 +66,60 @@ namespace SimpleLed
         /// <param name="otherDevice">Device to copy LEDs from</param>
         public void MapLEDs(ControlDevice otherDevice)
         {
-
-            Bitmap bm = new Bitmap(otherDevice.LEDs.Length, 1);
-
-            for (var i = 0; i < otherDevice.LEDs.Length; i++)
+            if (this.Has2DSupport && otherDevice.Has2DSupport)
             {
-                bm.SetPixel(i, 0, Color.FromArgb(otherDevice.LEDs[i].Color.Red, otherDevice.LEDs[i].Color.Green, otherDevice.LEDs[i].Color.Blue));
+                MapLEDs2Dto2D(otherDevice);
+            }
+            else
+            {
+                Bitmap bm = new Bitmap(otherDevice.LEDs.Length, 1);
+
+                for (var i = 0; i < otherDevice.LEDs.Length; i++)
+                {
+                    bm.SetPixel(i, 0,
+                        Color.FromArgb(otherDevice.LEDs[i].Color.Red, otherDevice.LEDs[i].Color.Green,
+                            otherDevice.LEDs[i].Color.Blue));
+                }
+
+                Bitmap bm2 = new Bitmap(bm, new Size(LEDs.Length, 1));
+
+                for (var i = 0; i < LEDs.Length; i++)
+                {
+                    int x = MapIndex(i);
+                    var cl = bm2.GetPixel(i, 0);
+                    LEDs[x].Color.Red = cl.R;
+                    LEDs[x].Color.Green = cl.G;
+                    LEDs[x].Color.Blue = cl.B;
+                }
+            }
+        }
+
+        private void MapLEDs2Dto2D(ControlDevice otherDevice)
+        {
+
+            Bitmap bm = new Bitmap(otherDevice.GridWidth, otherDevice.GridHeight);
+
+            for (int y = 0; y < otherDevice.GridHeight; y++)
+            {
+                for (var x = 0; x < otherDevice.GridWidth; x++)
+                {
+                    bm.SetPixel(x, y,
+                        Color.FromArgb(otherDevice.GridLEDs[x,y].Color.Red, otherDevice.GridLEDs[x, y].Color.Green, otherDevice.GridLEDs[x, y].Color.Blue));
+                }
             }
 
-            Bitmap bm2 = new Bitmap(bm, new Size(LEDs.Length, 1));
+            Bitmap bm2 = new Bitmap(bm, new Size(GridWidth, GridHeight));
 
-            for (var i = 0; i < LEDs.Length; i++)
+
+            for (int y = 0; y < GridHeight; y++)
             {
-                int x = MapIndex(i);
-                var cl = bm2.GetPixel(i, 0);
-                LEDs[x].Color.Red = cl.R;
-                LEDs[x].Color.Green = cl.G;
-                LEDs[x].Color.Blue = cl.B;
+                for (var x = 0; x < GridWidth; x++)
+                {
+                    var cl = bm2.GetPixel(x, y);
+                    GridLEDs[x,y].Color.Red = cl.R;
+                    GridLEDs[x, y].Color.Green = cl.G;
+                    GridLEDs[x, y].Color.Blue = cl.B;
+                }
             }
         }
 

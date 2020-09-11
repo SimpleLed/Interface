@@ -127,6 +127,7 @@ namespace SimpleLed
         /// Is this a publicly released driver ( considered beta otherwise )
         /// </summary>
         public bool IsPublicRelease { get; set; }
+
     }
 
     /// <summary>
