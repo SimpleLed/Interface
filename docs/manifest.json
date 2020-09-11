@@ -12,7 +12,7 @@
           "hash": "VLv5TRapYq7pd3lB5D1xxg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ControlDevice.LEDData.html",
-          "hash": "D0aIjOjk/IJH4DEB0IiwEA=="
+          "hash": "K+ZxFjU6xCRJ5Z7kdIuRKg=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,19 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ControlDevice.LedUnit.html",
-          "hash": "MpGF0DzdEKj1ozrxLsLeEg=="
+          "hash": "Gl2K9luN3A6GoCWyx+DYZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ControlDevice.PositionalLEDData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ControlDevice.PositionalLEDData.html",
+          "hash": "Txnx6Rd+HsIEmaGS1XQKNA=="
         }
       },
       "is_incremental": false,
@@ -45,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ControlDevice.html",
-          "hash": "Phbz8zW74BUaQXWR6i4gEQ=="
+          "hash": "bIYU8Ad1rRZlkbcuyb8DMQ=="
         }
       },
       "is_incremental": false,
@@ -60,7 +72,7 @@
           "hash": "na4ddxQZN42gB0E+ReN9HQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -84,7 +96,7 @@
           "hash": "bmAfrZb488oDYR3IckyNpQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -96,7 +108,7 @@
           "hash": "oS1q6wuCQOZTpY6E0jdyzQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -108,7 +120,7 @@
           "hash": "7LdBnPssd3t/BNDXywkkzg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -144,7 +156,7 @@
           "hash": "XNcUSaAvUokhbvjwa1r3XQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -156,7 +168,7 @@
           "hash": "snG+4RhnRKv2TUHDoRv1FA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -168,7 +180,7 @@
           "hash": "nzMRZv2YC66q19uw1uKTPA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.html",
-          "hash": "2nmuu4EAmJKxyzfx0+ziCA=="
+          "hash": "C6ts16rJKlA7CLyhKebLmQ=="
         }
       },
       "is_incremental": false,
@@ -192,7 +204,7 @@
           "hash": "igemvUQ0B50l3l2I2eaJYQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Q6baJg9ofy0qMfqSOkPojA=="
+          "hash": "1xZzhMMm8RJeIhYz+gGJDQ=="
         }
       },
       "is_incremental": false,
@@ -274,7 +286,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 15,
+          "total_file_count": 16,
           "skipped_file_count": 11
         },
         "TocDocumentProcessor": {

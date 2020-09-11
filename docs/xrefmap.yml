@@ -96,6 +96,19 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.Driver
   nameWithType: ControlDevice.Driver
+- uid: SimpleLed.ControlDevice.GetGridLED(System.Int32,System.Int32)
+  name: GetGridLED(Int32, Int32)
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GetGridLED_System_Int32_System_Int32_
+  commentId: M:SimpleLed.ControlDevice.GetGridLED(System.Int32,System.Int32)
+  fullName: SimpleLed.ControlDevice.GetGridLED(System.Int32, System.Int32)
+  nameWithType: ControlDevice.GetGridLED(Int32, Int32)
+- uid: SimpleLed.ControlDevice.GetGridLED*
+  name: GetGridLED
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GetGridLED_
+  commentId: Overload:SimpleLed.ControlDevice.GetGridLED
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.GetGridLED
+  nameWithType: ControlDevice.GetGridLED
 - uid: SimpleLed.ControlDevice.GetLEDByName(System.String)
   name: GetLEDByName(String)
   href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GetLEDByName_System_String_
@@ -135,19 +148,6 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.GridHeight
   nameWithType: ControlDevice.GridHeight
-- uid: SimpleLed.ControlDevice.GridLEDs
-  name: GridLEDs
-  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridLEDs
-  commentId: P:SimpleLed.ControlDevice.GridLEDs
-  fullName: SimpleLed.ControlDevice.GridLEDs
-  nameWithType: ControlDevice.GridLEDs
-- uid: SimpleLed.ControlDevice.GridLEDs*
-  name: GridLEDs
-  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridLEDs_
-  commentId: Overload:SimpleLed.ControlDevice.GridLEDs
-  isSpec: "True"
-  fullName: SimpleLed.ControlDevice.GridLEDs
-  nameWithType: ControlDevice.GridLEDs
 - uid: SimpleLed.ControlDevice.GridWidth
   name: GridWidth
   href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_GridWidth
@@ -174,6 +174,19 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.Has2DSupport
   nameWithType: ControlDevice.Has2DSupport
+- uid: SimpleLed.ControlDevice.In2DMode
+  name: In2DMode
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_In2DMode
+  commentId: P:SimpleLed.ControlDevice.In2DMode
+  fullName: SimpleLed.ControlDevice.In2DMode
+  nameWithType: ControlDevice.In2DMode
+- uid: SimpleLed.ControlDevice.In2DMode*
+  name: In2DMode
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_In2DMode_
+  commentId: Overload:SimpleLed.ControlDevice.In2DMode
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.In2DMode
+  nameWithType: ControlDevice.In2DMode
 - uid: SimpleLed.ControlDevice.LEDData
   name: ControlDevice.LEDData
   href: api/SimpleLed.ControlDevice.LEDData.html
@@ -316,6 +329,38 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.Name
   nameWithType: ControlDevice.Name
+- uid: SimpleLed.ControlDevice.PositionalLEDData
+  name: ControlDevice.PositionalLEDData
+  href: api/SimpleLed.ControlDevice.PositionalLEDData.html
+  commentId: T:SimpleLed.ControlDevice.PositionalLEDData
+  fullName: SimpleLed.ControlDevice.PositionalLEDData
+  nameWithType: ControlDevice.PositionalLEDData
+- uid: SimpleLed.ControlDevice.PositionalLEDData.X
+  name: X
+  href: api/SimpleLed.ControlDevice.PositionalLEDData.html#SimpleLed_ControlDevice_PositionalLEDData_X
+  commentId: P:SimpleLed.ControlDevice.PositionalLEDData.X
+  fullName: SimpleLed.ControlDevice.PositionalLEDData.X
+  nameWithType: ControlDevice.PositionalLEDData.X
+- uid: SimpleLed.ControlDevice.PositionalLEDData.X*
+  name: X
+  href: api/SimpleLed.ControlDevice.PositionalLEDData.html#SimpleLed_ControlDevice_PositionalLEDData_X_
+  commentId: Overload:SimpleLed.ControlDevice.PositionalLEDData.X
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.PositionalLEDData.X
+  nameWithType: ControlDevice.PositionalLEDData.X
+- uid: SimpleLed.ControlDevice.PositionalLEDData.Y
+  name: Y
+  href: api/SimpleLed.ControlDevice.PositionalLEDData.html#SimpleLed_ControlDevice_PositionalLEDData_Y
+  commentId: P:SimpleLed.ControlDevice.PositionalLEDData.Y
+  fullName: SimpleLed.ControlDevice.PositionalLEDData.Y
+  nameWithType: ControlDevice.PositionalLEDData.Y
+- uid: SimpleLed.ControlDevice.PositionalLEDData.Y*
+  name: Y
+  href: api/SimpleLed.ControlDevice.PositionalLEDData.html#SimpleLed_ControlDevice_PositionalLEDData_Y_
+  commentId: Overload:SimpleLed.ControlDevice.PositionalLEDData.Y
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.PositionalLEDData.Y
+  nameWithType: ControlDevice.PositionalLEDData.Y
 - uid: SimpleLed.ControlDevice.ProductImage
   name: ProductImage
   href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_ProductImage
@@ -368,6 +413,19 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ControlDevice.Reverse
   nameWithType: ControlDevice.Reverse
+- uid: SimpleLed.ControlDevice.SetGridLED(System.Int32,System.Int32,SimpleLed.LEDColor)
+  name: SetGridLED(Int32, Int32, LEDColor)
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_SetGridLED_System_Int32_System_Int32_SimpleLed_LEDColor_
+  commentId: M:SimpleLed.ControlDevice.SetGridLED(System.Int32,System.Int32,SimpleLed.LEDColor)
+  fullName: SimpleLed.ControlDevice.SetGridLED(System.Int32, System.Int32, SimpleLed.LEDColor)
+  nameWithType: ControlDevice.SetGridLED(Int32, Int32, LEDColor)
+- uid: SimpleLed.ControlDevice.SetGridLED*
+  name: SetGridLED
+  href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_SetGridLED_
+  commentId: Overload:SimpleLed.ControlDevice.SetGridLED
+  isSpec: "True"
+  fullName: SimpleLed.ControlDevice.SetGridLED
+  nameWithType: ControlDevice.SetGridLED
 - uid: SimpleLed.ControlDevice.SupportsLEDCountOverride
   name: SupportsLEDCountOverride
   href: api/SimpleLed.ControlDevice.html#SimpleLed_ControlDevice_SupportsLEDCountOverride
