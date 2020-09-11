@@ -9,7 +9,10 @@ namespace SimpleLed
     /// </summary>
     public class ControlDevice
     {
-
+        /// <summary>
+        /// If this device supports 2D mode and this flag is set, Push will push from the Grid rather than the LEDs array
+        /// </summary>
+        public bool In2DMode { get; set; }
         /// <summary>
         /// Signifies if this device can handle 2d led arrays
         /// </summary>
@@ -40,10 +43,6 @@ namespace SimpleLed
         public LedUnit[] LEDs { get; set; }
 
         /// <summary>
-        /// If device supports 2d grids, this allows direct access to LEDs via X/Y coords
-        /// </summary>
-        public LedUnit[,] GridLEDs { get; set; }
-        /// <summary>
         /// Amount of LEDs to shift by upon mapping to correct orientation differences.
         /// </summary>
         public int LedShift { get; set; } = 0;
@@ -68,6 +67,7 @@ namespace SimpleLed
         {
             if (this.Has2DSupport && otherDevice.Has2DSupport)
             {
+                In2DMode = true;
                 MapLEDs2Dto2D(otherDevice);
             }
             else
@@ -103,8 +103,11 @@ namespace SimpleLed
             {
                 for (var x = 0; x < otherDevice.GridWidth; x++)
                 {
-                    bm.SetPixel(x, y,
-                        Color.FromArgb(otherDevice.GridLEDs[x,y].Color.Red, otherDevice.GridLEDs[x, y].Color.Green, otherDevice.GridLEDs[x, y].Color.Blue));
+                    var px = otherDevice.GetGridLED(x, y);
+                    if (px != null)
+                    {
+                        bm.SetPixel(x, y, Color.FromArgb(px.Red, px.Green, px.Blue));
+                    }
                 }
             }
 
@@ -116,10 +119,30 @@ namespace SimpleLed
                 for (var x = 0; x < GridWidth; x++)
                 {
                     var cl = bm2.GetPixel(x, y);
-                    GridLEDs[x,y].Color.Red = cl.R;
-                    GridLEDs[x, y].Color.Green = cl.G;
-                    GridLEDs[x, y].Color.Blue = cl.B;
+
+                     SetGridLED(x,y, new LEDColor(cl.R, cl.G, cl.B));
+
                 }
+            }
+        }
+
+        /// <summary>
+        /// If device supports 2d grids, this allows gets LEDs via X/Y coords
+        /// </summary>
+        public LEDColor GetGridLED(int x, int y)
+        {
+            return LEDs.FirstOrDefault(p => p.Data is PositionalLEDData pd && pd.X == x && pd.Y == y)?.Color;
+        }
+
+        /// <summary>
+        /// If device supports 2d grids, this allows sets LEDs via X/Y coords
+        /// </summary>
+        public void SetGridLED(int x, int y, LEDColor color)
+        {
+            var led = LEDs.FirstOrDefault(p => p.Data is PositionalLEDData pd && pd.X == x && pd.Y == y);
+              if (led != null)
+            {
+                               led.Color = color;
             }
         }
 
@@ -187,6 +210,15 @@ namespace SimpleLed
             /// LED index
             /// </summary>
             public int LEDNumber { get; set; }
+        }
+
+        /// <summary>
+        /// Led data with position awareness
+        /// </summary>
+        public class PositionalLEDData : LEDData
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
         }
 
         /// <summary>
