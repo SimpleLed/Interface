@@ -6,7 +6,7 @@ namespace RawInput_dll
     // ReSharper disable FieldCanBeMadeReadOnly.Global
 
     [StructLayout(LayoutKind.Explicit)]
-    public struct DeviceInfo
+    internal struct DeviceInfo
     {
         [FieldOffset(0)]
         public int Size;
@@ -26,7 +26,7 @@ namespace RawInput_dll
         }
     }
 
-    public struct DeviceInfoMouse
+    internal struct DeviceInfoMouse
     {
         // ReSharper disable MemberCanBePrivate.Global
         public uint Id;                         // Identifier of the mouse device
@@ -40,7 +40,7 @@ namespace RawInput_dll
         }
     }
 
-    public struct DeviceInfoKeyboard
+    internal struct DeviceInfoKeyboard
     {
         public uint Type;                       // Type of the keyboard
         public uint SubType;                    // Subtype of the keyboard
@@ -61,7 +61,7 @@ namespace RawInput_dll
         }
     }
 
-    public struct DeviceInfoHid
+    internal struct DeviceInfoHid
     {
         public uint VendorID;       // Vendor identifier for the HID
         public uint ProductID;      // Product identifier for the HID
@@ -96,7 +96,7 @@ namespace RawInput_dll
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    public struct RawData
+    internal struct RawData
     {
         [FieldOffset(0)]
         internal Rawmouse mouse;
@@ -107,14 +107,14 @@ namespace RawInput_dll
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct  InputData
+    internal struct  InputData
     {
         public Rawinputheader header;           // 64 bit header size: 24  32 bit the header size: 16
         public RawData data;                    // Creating the rest in a struct allows the header size to align correctly for 32/64 bit
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Rawinputheader
+    internal struct Rawinputheader
     {
         public uint dwType;                     // Type of raw input (RIM_TYPEHID 2, RIM_TYPEKEYBOARD 1, RIM_TYPEMOUSE 0)
         public uint dwSize;                     // Size in bytes of the entire input packet of data. This includes RAWINPUT plus possible extra input reports in the RAWHID variable length array. 

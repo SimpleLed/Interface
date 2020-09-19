@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace RawInput_dll
 {
-	public sealed class RawKeyboard
+    public sealed class RawKeyboard
 	{
         public class DeviceSpecificWatcher
         {

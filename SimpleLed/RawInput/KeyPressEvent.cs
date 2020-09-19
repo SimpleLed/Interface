@@ -16,7 +16,7 @@ namespace RawInput_dll
         public int Vendor;
         public int Product;
 
-        public string Source
+        internal string Source
         {
             get { return _source; }
             set { _source = string.Format("Keyboard_{0}", value.PadLeft(2, '0')); }

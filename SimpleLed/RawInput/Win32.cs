@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace RawInput_dll
 {
-    static public class Win32
+    static internal class Win32
     {
         public static int LoWord(int dwValue)
         {

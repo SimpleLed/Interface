@@ -9,12 +9,12 @@ namespace RawInput_dll
 {
     public class RawInput : NativeWindow  
     {
-        public static RawKeyboard KeyboardDriver;
+        internal static RawKeyboard KeyboardDriver;
         readonly IntPtr _devNotifyHandle;
         static readonly Guid DeviceInterfaceHid = new Guid("4D1E55B2-F16F-11CF-88CB-001111000030");
         private PreMessageFilter _filter;
 
-        public event RawKeyboard.DeviceEventHandler KeyPressed
+        internal event RawKeyboard.DeviceEventHandler KeyPressed
         {
             add { KeyboardDriver.KeyPressed += value; }
             remove { KeyboardDriver.KeyPressed -= value;}

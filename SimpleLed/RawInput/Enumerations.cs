@@ -5,13 +5,13 @@ namespace RawInput_dll
     // ReSharper disable UnusedMember.Global
     // ReSharper disable InconsistentNaming
 
-    public enum DataCommand : uint
+    internal enum DataCommand : uint
     {
         RID_HEADER = 0x10000005, // Get the header information from the RAWINPUT structure.
         RID_INPUT = 0x10000003   // Get the raw data from the RAWINPUT structure.
     }
 
-    public static class DeviceType
+    internal static class DeviceType
     {
         public const int RimTypemouse = 0;
         public const int RimTypekeyboard = 1;
@@ -63,7 +63,7 @@ namespace RawInput_dll
         DEVNOTIFY = 0x00002000
     }
 
-    public enum HidUsagePage : ushort
+    internal enum HidUsagePage : ushort
     {
         UNDEFINED = 0x00,   // Unknown usage page
         GENERIC = 0x01,     // Generic desktop controls
@@ -74,7 +74,7 @@ namespace RawInput_dll
         KEYBOARD = 0x07,    // Keyboard controls
     }
 
-    public enum HidUsage : ushort
+    internal enum HidUsage : ushort
     {
         Undefined = 0x00,       // Unknown usage
         Pointer = 0x01,         // Pointer

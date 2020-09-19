@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace RawInput_dll
 {
-    public static class KeyMapper
+    internal static class KeyMapper
     {
         // I prefer to have control over the key mapping
         // This mapping could be loading from file to allow mapping changes without a recompile
-        public  static string GetKeyName(int value)
+        internal static string GetKeyName(int value)
         {
             switch (value)
             {
@@ -200,7 +200,7 @@ namespace RawInput_dll
         }
 
         // If you prefer the virtualkey converted into a Microsoft virtualkey code use this
-        public static string GetMicrosoftKeyName(int virtualKey)
+        internal static string GetMicrosoftKeyName(int virtualKey)
         {
             return new KeysConverter().ConvertToString(virtualKey);
         }
