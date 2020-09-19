@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -9,6 +10,37 @@ namespace SimpleLed
     /// </summary>
     public class ControlDevice
     {
+        private class MappedToEventArgs
+        {
+            public ControlDevice DestinationDevice { get; set; }
+            public ControlDevice SourceDevice { get; set; }
+        }
+
+        public delegate void DestTriggeredEventHandler(object sender, TriggerEventArgs args);
+
+        /// <summary>
+        /// Event that is triggered on a Dest device firing an interactivity
+        /// </summary>
+        public event DestTriggeredEventHandler DestTriggeredEvent;
+
+        /// <summary>
+        /// Fire an interactivity event on all mapped devices
+        /// </summary>
+        /// <param name="e"></param>
+        public void TriggerAllMapped(TriggerEventArgs e)
+        {
+            foreach (MappedListItem mappedListItem in mappedDevices)
+            {
+                try
+                {
+                    mappedListItem.Device.DestTriggeredEvent?.Invoke(null, e);
+                }
+                catch
+                {
+                }
+            }
+        }
+
         /// <summary>
         /// If this device supports 2D mode and this flag is set, Push will push from the Grid rather than the LEDs array
         /// </summary>
@@ -59,12 +91,63 @@ namespace SimpleLed
         /// 256x192 Bitmap of device
         /// </summary>
         public Bitmap ProductImage { get; set; } = null;
+
+        private readonly List<MappedListItem> mappedDevices = new List<MappedListItem>();
+
+        private class MappedListItem
+        {
+            public ControlDevice Device { get; set; }
+            public DateTime LastMapped { get; set; }
+        }
+
+        private void Dv_MappedToEvent(object sender, MappedToEventArgs args)
+        {
+            //try catch the hell out of this, dont want any issues for something thats nonessential.
+            try
+            {
+                if (mappedDevices.All(x => x.Device != args.SourceDevice))
+                {
+                    mappedDevices.Add(new MappedListItem
+                    {
+                        Device = args.SourceDevice,
+                        LastMapped = DateTime.Now
+                    });
+                }
+                else
+                {
+                    mappedDevices.First(x => x.Device == args.SourceDevice).LastMapped = DateTime.Now;
+                }
+
+                try
+                {
+                    var removeList = mappedDevices.Where(x => (DateTime.Now - x.LastMapped).TotalSeconds > 1);
+
+                    foreach (var mappedListItem in removeList)
+                    {
+                        mappedDevices.Remove(mappedListItem);
+                    }
+                }
+                catch
+                {
+                }
+            }
+            catch
+            {
+            }
+        }
+
         /// <summary>
         /// Map another devices LEDs to this device (with automatic scaling)
         /// </summary>
         /// <param name="otherDevice">Device to copy LEDs from</param>
         public void MapLEDs(ControlDevice otherDevice)
         {
+            Dv_MappedToEvent(this, new MappedToEventArgs
+            {
+                DestinationDevice = this,
+                SourceDevice = otherDevice
+            });
+
             if (this.Has2DSupport && otherDevice.Has2DSupport)
             {
                 In2DMode = true;
@@ -94,6 +177,20 @@ namespace SimpleLed
             }
         }
 
+        /// <summary>
+        /// model describing an interactivity event.
+        /// </summary>
+        public class TriggerEventArgs
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public float FloatX { get; set; }
+            public float FloatY { get; set; }
+
+            public int LedNumber { get; set; }
+            public float RatioPosition { get; set; }
+        }
+
         private void MapLEDs2Dto2D(ControlDevice otherDevice)
         {
 
@@ -101,7 +198,7 @@ namespace SimpleLed
 
             for (int y = 0; y < otherDevice.GridHeight; y++)
             {
-                for (var x = 0; x < otherDevice.GridWidth; x++)
+                for (int x = 0; x < otherDevice.GridWidth; x++)
                 {
                     var px = otherDevice.GetGridLED(x, y);
                     if (px != null)
@@ -112,16 +209,14 @@ namespace SimpleLed
             }
 
             Bitmap bm2 = new Bitmap(bm, new Size(GridWidth, GridHeight));
-
-
+            
             for (int y = 0; y < GridHeight; y++)
             {
-                for (var x = 0; x < GridWidth; x++)
+                for (int x = 0; x < GridWidth; x++)
                 {
-                    var cl = bm2.GetPixel(x, y);
+                    Color cl = bm2.GetPixel(x, y);
 
-                     SetGridLED(x,y, new LEDColor(cl.R, cl.G, cl.B));
-
+                    SetGridLED(x, y, new LEDColor(cl.R, cl.G, cl.B));
                 }
             }
         }
@@ -140,9 +235,9 @@ namespace SimpleLed
         public void SetGridLED(int x, int y, LEDColor color)
         {
             var led = LEDs.FirstOrDefault(p => p.Data is PositionalLEDData pd && pd.X == x && pd.Y == y);
-              if (led != null)
+            if (led != null)
             {
-                               led.Color = color;
+                led.Color = color;
             }
         }
 

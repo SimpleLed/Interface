@@ -52,7 +52,14 @@ namespace SimpleLed
         {
             using (Stream myStream = myAssembly.GetManifestResourceStream(path))
             {
-                return (Bitmap)Image.FromStream(myStream);
+                if (myStream != null)
+                {
+                    return (Bitmap) Image.FromStream(myStream);
+                }
+                else
+                {
+                    return new Bitmap(1,1);
+                }
             }
 
         }

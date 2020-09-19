@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using RawInput_dll;
 
 namespace SimpleLed
 {
@@ -12,7 +16,9 @@ namespace SimpleLed
     /// </summary>
     public class SLSManager
     {
-        private string configPath;
+        private readonly RawInput rawInput;
+        private readonly string configPath;
+
         public List<ISimpleLed> Drivers = new List<ISimpleLed>();
 
         /// <summary>
@@ -21,7 +27,33 @@ namespace SimpleLed
         /// <param name="cfgPath">Path where configs are stored by the drivers</param>
         public SLSManager(string cfgPath)
         {
+            DummyForm dummy = null;
+            IntPtr handle = IntPtr.Zero;
+
+            Task.Run(() =>
+            {
+                dummy = new DummyForm();
+
+                handle = dummy.Handle;
+
+                dummy.Hide();
+                Application.Run(dummy);
+
+            });
+
+            while (handle == IntPtr.Zero)
+            {
+                Thread.Sleep(33);
+            }
+
+
+            //Thread.Sleep(1000);
+
             configPath = cfgPath;
+
+            rawInput = new RawInput(handle);
+            rawInput.AddMessageFilter(); // Adding a message filter will cause keypresses to be handled
+
         }
 
         /// <summary>
@@ -57,6 +89,18 @@ namespace SimpleLed
         {
             foreach (var simpleLedDriver in Drivers)
             {
+
+                if ((simpleLedDriver as ISimpleLedWithKeyboardHook) != null)
+                {
+                    ((ISimpleLedWithKeyboardHook)simpleLedDriver).RawInput = rawInput;
+                }
+
+
+                if ((simpleLedDriver as ISimpleLedWithKeyboardHookAndConfig) != null)
+                {
+                    ((ISimpleLedWithKeyboardHookAndConfig)simpleLedDriver).RawInput = rawInput;
+                }
+
                 simpleLedDriver.Configure(null);
             }
         }

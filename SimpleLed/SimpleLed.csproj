@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,17 +49,38 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="DeviceTypes.cs" />
+    <Compile Include="DummyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DummyForm.Designer.cs">
+      <DependentUpon>DummyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="ISimpleLed.cs" />
     <Compile Include="ControlDevice.cs" />
     <Compile Include="LEDColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawInput\DataStructures.cs" />
+    <Compile Include="RawInput\Enumerations.cs" />
+    <Compile Include="RawInput\KeyMapper.cs" />
+    <Compile Include="RawInput\KeyPressEvent.cs" />
+    <Compile Include="RawInput\PreMessageFilter.cs" />
+    <Compile Include="RawInput\RawInput.cs" />
+    <Compile Include="RawInput\RawInputEventArg.cs" />
+    <Compile Include="RawInput\RawKeyboard.cs" />
+    <Compile Include="RawInput\RegistryAccess.cs" />
+    <Compile Include="RawInput\Win32.cs" />
     <Compile Include="ReleaseNumber.cs" />
     <Compile Include="SLSConfigData.cs" />
     <Compile Include="SLSManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DummyForm.resx">
+      <DependentUpon>DummyForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
