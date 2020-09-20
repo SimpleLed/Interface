@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
+using SimpleLed.RawInput;
 
 namespace SimpleLed
 {
@@ -10,6 +12,29 @@ namespace SimpleLed
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Lerp between two colours
+        /// </summary>
+        /// <param name="color1">first input color</param>
+        /// <param name="color2">second input color</param>
+        /// <param name="perc">lerp amount</param>
+        /// <returns></returns>
+        public static LEDColor LerpTo(this LEDColor color1, LEDColor color2, float perc)=>Vector3.Lerp(color1.ToVector3(), color2.ToVector3(), perc).ToLEDColor();
+
+        /// <summary>
+        /// helper method to translate a LED color to a Vector3
+        /// </summary>
+        /// <param name="c">input color</param>
+        /// <returns></returns>
+        public static Vector3 ToVector3(this LEDColor c)=>new Vector3(c.Red,c.Green,c.Blue);
+
+        /// <summary>
+        /// Helper method to translate a vector3 to a LED color
+        /// </summary>
+        /// <param name="v">input vector3</param>
+        /// <returns></returns>
+        public static LEDColor ToLEDColor(this Vector3 v)=>new LEDColor((int)v.X, (int)v.Y,(int)v.Z);
+
         /// <summary>
         /// Get a LED colour from a H/S/V value
         /// </summary>
@@ -64,6 +89,6 @@ namespace SimpleLed
 
         }
 
-
+        internal static RawInput.RawInput RawInput;
     }
 }

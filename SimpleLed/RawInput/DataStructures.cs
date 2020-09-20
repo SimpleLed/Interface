@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     // ReSharper disable FieldCanBeMadeReadOnly.Global
 

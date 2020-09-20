@@ -6,34 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     public sealed class RawKeyboard
 	{
-        public class DeviceSpecificWatcher
-        {
-            public delegate void DeviceSpecificEventHandler(object sender, RawInputEventArg e);
-
-            public event DeviceSpecificEventHandler KeyPressed;
-
-            public int Vendor { get; set; }
-            public int Product { get; set; }
-
-            public void Fire(RawInputEventArg arg)
-            {
-                KeyPressed(this, arg);
-            }
-        }
-
-        public void AddWatcher(int vid, int pid, DeviceSpecificWatcher.DeviceSpecificEventHandler handler)
+        public void AddWatcher(int vid, int pid, InputTrigger.DeviceSpecificEventHandler handler)
         {
             if (DeviceSpecificWatchers.Any(x => x.Product != pid && x.Vendor != vid))
             {
                 DeviceSpecificWatchers.Remove(DeviceSpecificWatchers.First(x => x.Product != pid && x.Vendor != vid));
             }
 
-            var lcs = new DeviceSpecificWatcher
-                {
+            var lcs = new InputTrigger
+			{
                     Product = pid,
                     Vendor = vid
                 };
@@ -44,10 +29,10 @@ namespace RawInput_dll
             
         }
 		
-		public List<DeviceSpecificWatcher> DeviceSpecificWatchers = new List<DeviceSpecificWatcher>();
+		public List<InputTrigger> DeviceSpecificWatchers = new List<InputTrigger>();
 
         private readonly Dictionary<IntPtr, KeyPressEvent> _deviceList = new Dictionary<IntPtr, KeyPressEvent>();
-		public delegate void DeviceEventHandler(object sender, RawInputEventArg e);
+		public delegate void DeviceEventHandler(KeyPressEvent keyPressEventArgs);
 		public event DeviceEventHandler KeyPressed;
 		readonly object _padLock = new object();
 		public int NumberOfKeyboards { get; private set; }
@@ -93,7 +78,7 @@ namespace RawInput_dll
 
 				var globalDevice = new KeyPressEvent
 				{
-					DeviceName = "Global Keyboard",
+					DevicePath = "Global Keyboard",
 					DeviceHandle = IntPtr.Zero,
 					DeviceType = Win32.GetDeviceType(DeviceType.RimTypekeyboard),
 					Name = "Fake Keyboard. Some keys (ZOOM, MUTE, VOLUMEUP, VOLUMEDOWN) are sent to rawinput with a handle of zero.",
@@ -132,7 +117,7 @@ namespace RawInput_dll
 
 							var dInfo = new KeyPressEvent
 							{
-								DeviceName = Marshal.PtrToStringAnsi(pData),
+								DevicePath = Marshal.PtrToStringAnsi(pData),
 								DeviceHandle = rid.hDevice,
 								DeviceType = Win32.GetDeviceType(rid.dwType),
 								Name = deviceDesc,
@@ -207,10 +192,10 @@ namespace RawInput_dll
 			keyPressEvent.VKeyName = KeyMapper.GetKeyName(VirtualKeyCorrection(virtualKey, isE0BitSet, makeCode)).ToUpper();
 			keyPressEvent.VKey = virtualKey;
 
-            if (keyPressEvent.DeviceName.Contains("VID_") && keyPressEvent.DeviceName.Contains("PID_"))
+            if (keyPressEvent.DevicePath.Contains("VID_") && keyPressEvent.DevicePath.Contains("PID_"))
             {
-                var vid = "0x" +keyPressEvent.DeviceName.Substring(keyPressEvent.DeviceName.IndexOf("VID_") + 4, 4);
-                var pid = "0x" + keyPressEvent.DeviceName.Substring(keyPressEvent.DeviceName.IndexOf("PID_") + 4, 4);
+                var vid = "0x" +keyPressEvent.DevicePath.Substring(keyPressEvent.DevicePath.IndexOf("VID_") + 4, 4);
+                var pid = "0x" + keyPressEvent.DevicePath.Substring(keyPressEvent.DevicePath.IndexOf("PID_") + 4, 4);
 
                 keyPressEvent.Vendor = Convert.ToInt32( vid, 16);
                 keyPressEvent.Product = Convert.ToInt32( pid,16);
@@ -219,16 +204,10 @@ namespace RawInput_dll
             var specific = DeviceSpecificWatchers.FirstOrDefault(x =>
                 x.Product == keyPressEvent.Product && x.Vendor == keyPressEvent.Vendor);
 
-            if (specific != null)
-            {
-				specific.Fire(new RawInputEventArg(keyPressEvent));
-            }
-			
-			if (KeyPressed != null)
-			{
-				KeyPressed(this, new RawInputEventArg(keyPressEvent));
-			}
-		}
+            specific?.Fire(keyPressEvent);
+
+            KeyPressed?.Invoke(keyPressEvent);
+        }
 
 		private static int VirtualKeyCorrection(int virtualKey, bool isE0BitSet, int makeCode)
 		{

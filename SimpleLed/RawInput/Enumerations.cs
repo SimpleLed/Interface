@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     // ReSharper disable UnusedMember.Global
     // ReSharper disable InconsistentNaming

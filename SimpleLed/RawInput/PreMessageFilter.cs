@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     internal class PreMessageFilter : IMessageFilter
     {

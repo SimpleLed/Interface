@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Forms;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     internal static class KeyMapper
     {

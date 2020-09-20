@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     static internal class RegistryAccess
     {

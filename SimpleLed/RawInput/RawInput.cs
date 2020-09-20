@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using Application = System.Windows.Forms.Application;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
-    public class RawInput : NativeWindow  
+    internal class RawInput : NativeWindow  
     {
         internal static RawKeyboard KeyboardDriver;
         readonly IntPtr _devNotifyHandle;
@@ -20,12 +20,12 @@ namespace RawInput_dll
             remove { KeyboardDriver.KeyPressed -= value;}
         }
 
-        public void AddWatcher(int vid, int pid, RawKeyboard.DeviceSpecificWatcher.DeviceSpecificEventHandler handler)
+        internal void AddWatcher(int vid, int pid, InputTrigger.DeviceSpecificEventHandler handler)
         {
             KeyboardDriver.AddWatcher(vid,pid,handler);
         }
 
-        public int NumberOfKeyboards
+        internal int NumberOfKeyboards
         {
             get { return KeyboardDriver.NumberOfKeyboards; } 
         }
@@ -45,7 +45,7 @@ namespace RawInput_dll
             Application.RemoveMessageFilter(_filter);
         }
 
-        public RawInput(IntPtr parentHandle)
+        internal RawInput(IntPtr parentHandle)
         {
             AssignHandle(parentHandle);
 

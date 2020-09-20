@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RawInput_dll;
+using SimpleLed.RawInput;
 
 namespace SimpleLed
 {
@@ -16,7 +16,6 @@ namespace SimpleLed
     /// </summary>
     public class SLSManager
     {
-        private readonly RawInput rawInput;
         private readonly string configPath;
 
         public List<ISimpleLed> Drivers = new List<ISimpleLed>();
@@ -51,8 +50,8 @@ namespace SimpleLed
 
             configPath = cfgPath;
 
-            rawInput = new RawInput(handle);
-            rawInput.AddMessageFilter(); // Adding a message filter will cause keypresses to be handled
+            InternalSolids.RawInput = new RawInput.RawInput(handle);
+            InternalSolids.RawInput.AddMessageFilter(); // Adding a message filter will cause keypresses to be handled
 
         }
 
@@ -87,19 +86,21 @@ namespace SimpleLed
         /// </summary>
         public void Init()
         {
-            foreach (var simpleLedDriver in Drivers)
+            foreach (ISimpleLed simpleLedDriver in Drivers)
             {
 
-                if ((simpleLedDriver as ISimpleLedWithKeyboardHook) != null)
-                {
-                    ((ISimpleLedWithKeyboardHook)simpleLedDriver).RawInput = rawInput;
-                }
+                //if ((simpleLedDriver as ISimpleLedWithKeyboardHook) != null)
+                //{
+                //    ((ISimpleLedWithKeyboardHook)simpleLedDriver).RawInput = rawInput;
+                //}
 
 
-                if ((simpleLedDriver as ISimpleLedWithKeyboardHookAndConfig) != null)
-                {
-                    ((ISimpleLedWithKeyboardHookAndConfig)simpleLedDriver).RawInput = rawInput;
-                }
+                //if ((simpleLedDriver as ISimpleLedWithKeyboardHookAndConfig) != null)
+                //{
+                //    ((ISimpleLedWithKeyboardHookAndConfig)simpleLedDriver).RawInput = rawInput;
+                //}
+
+                //simpleLedDriver.RawInput = rawInput;
 
                 simpleLedDriver.Configure(null);
             }

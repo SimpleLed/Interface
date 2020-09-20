@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using RawInput_dll;
+using SimpleLed.RawInput;
 
 namespace SimpleLed
 {
@@ -54,25 +54,6 @@ namespace SimpleLed
         string Name();
 
     }
-
-    public interface ISimpleLedWithKeyboardHook : ISimpleLed
-    {
-
-        /// <summary>
-        /// This is a ref to the raw kb input hook.
-        /// </summary>
-        RawInput RawInput { get; set; }
-    }
-
-    public interface ISimpleLedWithKeyboardHookAndConfig : ISimpleLedWithConfig
-    {
-
-        /// <summary>
-        /// This is a ref to the raw kb input hook.
-        /// </summary>
-        RawInput RawInput { get; set; }
-    }
-
 
     /// <summary>
     /// Extended version of interface for drivers that support custom UI config

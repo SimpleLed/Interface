@@ -5,102 +5,6 @@
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.KeyPressEvent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.KeyPressEvent.html",
-          "hash": "nlhY1minKFindI+ULluMuw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawInput.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawInput.html",
-          "hash": "O56a/XH0kHxcvZHpy7w+6A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawInputEventArg.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawInputEventArg.html",
-          "hash": "+Q1Pjxrxh3qMAad/OrLHSQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawKeyboard.DeviceEventHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawKeyboard.DeviceEventHandler.html",
-          "hash": "4IICnyB3aTTmKKNM7HWBwg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawKeyboard.DeviceSpecificWatcher.DeviceSpecificEventHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawKeyboard.DeviceSpecificWatcher.DeviceSpecificEventHandler.html",
-          "hash": "v4I3FPGoq5V2oxVIyXLr3Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawKeyboard.DeviceSpecificWatcher.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawKeyboard.DeviceSpecificWatcher.html",
-          "hash": "QsUq8OLJWMEHj1X2MZCdzQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.RawKeyboard.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.RawKeyboard.html",
-          "hash": "KYPqILUfccuWVNR5Z+xfjA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RawInput_dll.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RawInput_dll.html",
-          "hash": "4Wxl+JJJ1H6leJ/BdYmAmQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/SimpleLed.BaseViewModel.yml",
       "output": {
         ".html": {
@@ -201,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.DriverDetails.html",
-          "hash": "0xn/3dU+JO+MEsRPHtBQSg=="
+          "hash": "ipBMNpI71EK1uqlhKx2Wnw=="
         }
       },
       "is_incremental": false,
@@ -213,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.DriverProperties.html",
-          "hash": "Bgom2YBCrqyeh+TDhyJvrA=="
+          "hash": "tF25zFr4FPSpGVHdB6spiw=="
         }
       },
       "is_incremental": false,
@@ -237,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.Extensions.html",
-          "hash": "oS1q6wuCQOZTpY6E0jdyzQ=="
+          "hash": "R4eBjt+LH2msQf/6awb+ZQ=="
         }
       },
       "is_incremental": false,
@@ -273,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ISimpleLedWithConfig.html",
-          "hash": "/ufiF9XM4let5r71SvkLEQ=="
+          "hash": "wttVXZxuw5jfAQdUzihyzg=="
         }
       },
       "is_incremental": false,
@@ -281,11 +185,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/SimpleLed.ISimpleLedWithKeyboardHook.yml",
+      "source_relative_path": "api/SimpleLed.InputTrigger.DeviceSpecificEventHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/SimpleLed.ISimpleLedWithKeyboardHook.html",
-          "hash": "7rLcuS8Pwr8hUAP0h6qNdA=="
+          "relative_path": "api/SimpleLed.InputTrigger.DeviceSpecificEventHandler.html",
+          "hash": "61hNFZtBgPlQC/5A61gQvA=="
         }
       },
       "is_incremental": false,
@@ -293,11 +197,23 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/SimpleLed.ISimpleLedWithKeyboardHookAndConfig.yml",
+      "source_relative_path": "api/SimpleLed.InputTrigger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/SimpleLed.ISimpleLedWithKeyboardHookAndConfig.html",
-          "hash": "vgiYUDNcytsceeF7ZkImUg=="
+          "relative_path": "api/SimpleLed.InputTrigger.html",
+          "hash": "iccQNIVNyj6iqx4Lvwxxfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.KeyboardHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.KeyboardHelper.html",
+          "hash": "A2Pcum8Fp0T0lZI5IcZdog=="
         }
       },
       "is_incremental": false,
@@ -309,7 +225,55 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.LEDColor.html",
-          "hash": "XNcUSaAvUokhbvjwa1r3XQ=="
+          "hash": "OIYVqCjD4uHqq492xzFZ5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.RawInput.KeyPressEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.RawInput.KeyPressEvent.html",
+          "hash": "PQRsJapifAF9jl7ehDrcEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.RawInput.RawKeyboard.DeviceEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.RawInput.RawKeyboard.DeviceEventHandler.html",
+          "hash": "SdO7mJX3v/Vw2J90MUKxkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.RawInput.RawKeyboard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.RawInput.RawKeyboard.html",
+          "hash": "c35YWeej4UNZMcWo4Y7CVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.RawInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.RawInput.html",
+          "hash": "9KQ8VMAWaPlXlmIE6QtVCg=="
         }
       },
       "is_incremental": false,
@@ -333,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.SLSManager.html",
-          "hash": "IzGjOo8t+RtUf6tovqUBrA=="
+          "hash": "e7ZYNOIX5XFMj79UNuc6Tw=="
         }
       },
       "is_incremental": false,
@@ -345,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.html",
-          "hash": "J1m3rwCMe7oNqn3fk282uA=="
+          "hash": "xTYe3FZBuKG92CVLp8k2Gg=="
         }
       },
       "is_incremental": false,
@@ -369,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "nk9gYhy0KH1uIR2A8NmJqg=="
+          "hash": "f3ZzyzDRr0jnG6Bp+MHQ9A=="
         }
       },
       "is_incremental": false,
@@ -442,8 +406,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 29,
-          "skipped_file_count": 26
+          "total_file_count": 26,
+          "skipped_file_count": 17
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

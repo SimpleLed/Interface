@@ -4,7 +4,7 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace RawInput_dll
+namespace SimpleLed.RawInput
 {
     static internal class Win32
     {
@@ -142,7 +142,7 @@ namespace RawInput_dll
 
                         var dInfo = new KeyPressEvent
                         {
-                            DeviceName = Marshal.PtrToStringAnsi(pData),
+                            DevicePath = Marshal.PtrToStringAnsi(pData),
                             DeviceHandle = rid.hDevice,
                             DeviceType = GetDeviceType(rid.dwType),
                             Name = deviceDesc,
