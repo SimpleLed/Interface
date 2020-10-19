@@ -17,6 +17,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/SimpleLed.ConfigUserControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimpleLed.ConfigUserControl.html",
+          "hash": "zfSL1na0OYLWsDyBaQdafQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/SimpleLed.ControlDevice.DestTriggeredEventHandler.yml",
       "output": {
         ".html": {
@@ -93,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.DeviceTypes.html",
-          "hash": "na4ddxQZN42gB0E+ReN9HQ=="
+          "hash": "Q1y2ON/XndOTch4OOlizCw=="
         }
       },
       "is_incremental": false,
@@ -105,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.DriverDetails.html",
-          "hash": "ipBMNpI71EK1uqlhKx2Wnw=="
+          "hash": "AWJB26GUGYFKWYekwxs1bA=="
         }
       },
       "is_incremental": false,
@@ -117,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.DriverProperties.html",
-          "hash": "tF25zFr4FPSpGVHdB6spiw=="
+          "hash": "vcW23iWFvxyt19V0HA3sKw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ISimpleLed.html",
-          "hash": "3O+caiwepGkQOJQLd5nOhw=="
+          "hash": "MgQSxJ5mvSkrW4t6yWteAg=="
         }
       },
       "is_incremental": false,
@@ -177,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.ISimpleLedWithConfig.html",
-          "hash": "wttVXZxuw5jfAQdUzihyzg=="
+          "hash": "1DnAdyBcori1rHvWBVzL2g=="
         }
       },
       "is_incremental": false,
@@ -297,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.SLSManager.html",
-          "hash": "e7ZYNOIX5XFMj79UNuc6Tw=="
+          "hash": "RdEezzhRwTECjNiTkgebhw=="
         }
       },
       "is_incremental": false,
@@ -309,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SimpleLed.html",
-          "hash": "xTYe3FZBuKG92CVLp8k2Gg=="
+          "hash": "162vltKG7P2qGRtadH8Cww=="
         }
       },
       "is_incremental": false,
@@ -333,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "f3ZzyzDRr0jnG6Bp+MHQ9A=="
+          "hash": "THSJkbtqcFFKDWHh1tIrDg=="
         }
       },
       "is_incremental": false,
@@ -406,8 +418,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 26,
-          "skipped_file_count": 17
+          "total_file_count": 27,
+          "skipped_file_count": 19
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

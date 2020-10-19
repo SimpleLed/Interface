@@ -42,6 +42,8 @@ namespace SimpleLed.RawInput
         /// </summary>
         public string KeyPressState;    // MAKE or BREAK
 
+        public int XPosition;
+        public int YPosition;
         /// <summary>
         /// Vendor id as integer
         /// </summary>
@@ -56,6 +58,10 @@ namespace SimpleLed.RawInput
             get { return _source; }
             set { _source = string.Format("Keyboard_{0}", value.PadLeft(2, '0')); }
         }
+
+        public string MSKeyName { get; internal set; }
+
+        public int ScanCode;
 
         public override string ToString()
         {

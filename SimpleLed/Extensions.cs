@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using SimpleLed.RawInput;
@@ -12,6 +13,34 @@ namespace SimpleLed
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Convert a HEX string to an integer (used for USB VIDs and PIDs)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static int HexToInt(this string input)
+        {
+            if (!input.StartsWith("0x"))
+            {
+                input = "0x" + input;
+            }
+
+            if (input.ToCharArray().All(x => "0123456789abcdefx".Contains(x.ToString().ToLower())))
+            {
+
+                try
+                {
+                    return Convert.ToInt32(input, 16);
+                }
+                catch
+                {
+             
+                }
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// Lerp between two colours
         /// </summary>

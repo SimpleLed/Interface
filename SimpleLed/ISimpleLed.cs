@@ -10,16 +10,25 @@ namespace SimpleLed
     /// </summary>
     public interface ISimpleLed : IDisposable
     {
+        event Events.DeviceChangeEventHandler DeviceAdded;
+        event Events.DeviceChangeEventHandler DeviceRemoved;
+
+
+        /// <summary>
+        /// Event that is fired when the number of control devices this driver is offering changes
+        /// </summary>
+        //event EventHandler DeviceRescanRequired;
+
         /// <summary>
         /// Initial config/setup post constructor
         /// </summary>
         /// <param name="driverDetails">specific details this plugin needs to startup - param probably being obsoleted soon, just pass null</param>
         void Configure(DriverDetails driverDetails);
-        /// <summary>
-        /// Fetch all devices found by device
-        /// </summary>
-        /// <returns>List of devices provided</returns>
-        List<ControlDevice> GetDevices();
+        ///// <summary>
+        ///// Fetch all devices found by device
+        ///// </summary>
+        ///// <returns>List of devices provided</returns>
+        //List<ControlDevice> GetDevices();
         /// <summary>
         /// Push local LEDs to device/SDK
         /// </summary>
@@ -52,6 +61,8 @@ namespace SimpleLed
         /// </summary>
         /// <returns>pretty driver name as string</returns>
         string Name();
+
+        void InterestedUSBChange(int VID, int PID);
 
     }
 
@@ -130,15 +141,34 @@ namespace SimpleLed
         /// </summary>
         public bool IsPublicRelease { get; set; }
 
+        public List<USBDevice> SupportedDevices { get; set; }
+
+    }
+
+
+    /// <summary>
+    /// Describes a USB device
+    /// </summary>
+    public class USBDevice
+    {
+        public int VID { get; set; }
+        public int? HID { get; set; }
+
+        public string ManufacturerName { get; set; }
+        public string DeviceName { get; set; }
+        public string DeviceType { get; set; }
+        public bool IsConnected { get; set; }
+        public string DevicePrettyName { get; set; }
     }
 
     /// <summary>
-    ///  Obsolete, do not use.
+    ///  details to pass the plugin on init
     /// </summary>
     public class DriverDetails
     {
-
-        public string Name { get; set; }
-        public virtual string Platform { get; } = "Unknown";
+        /// <summary>
+        /// path the plugin was loaded from
+        /// </summary>
+        public string HomeFolder { get; set; }
     }
 }

@@ -64,6 +64,25 @@ references:
   fullName.vb: SimpleLed.BaseViewModel.SetProperty(Of T)(ByRef T, T, System.String)
   nameWithType: BaseViewModel.SetProperty<T>(ref T, T, String)
   nameWithType.vb: BaseViewModel.SetProperty(Of T)(ByRef T, T, String)
+- uid: SimpleLed.ConfigUserControl
+  name: ConfigUserControl
+  href: api/SimpleLed.ConfigUserControl.html
+  commentId: T:SimpleLed.ConfigUserControl
+  fullName: SimpleLed.ConfigUserControl
+  nameWithType: ConfigUserControl
+- uid: SimpleLed.ConfigUserControl.#ctor
+  name: ConfigUserControl()
+  href: api/SimpleLed.ConfigUserControl.html#SimpleLed_ConfigUserControl__ctor
+  commentId: M:SimpleLed.ConfigUserControl.#ctor
+  fullName: SimpleLed.ConfigUserControl.ConfigUserControl()
+  nameWithType: ConfigUserControl.ConfigUserControl()
+- uid: SimpleLed.ConfigUserControl.#ctor*
+  name: ConfigUserControl
+  href: api/SimpleLed.ConfigUserControl.html#SimpleLed_ConfigUserControl__ctor_
+  commentId: Overload:SimpleLed.ConfigUserControl.#ctor
+  isSpec: "True"
+  fullName: SimpleLed.ConfigUserControl.ConfigUserControl
+  nameWithType: ConfigUserControl.ConfigUserControl
 - uid: SimpleLed.ControlDevice
   name: ControlDevice
   href: api/SimpleLed.ControlDevice.html
@@ -578,6 +597,12 @@ references:
   commentId: F:SimpleLed.DeviceTypes.Fan
   fullName: SimpleLed.DeviceTypes.Fan
   nameWithType: DeviceTypes.Fan
+- uid: SimpleLed.DeviceTypes.GameIntegration
+  name: GameIntegration
+  href: api/SimpleLed.DeviceTypes.html#SimpleLed_DeviceTypes_GameIntegration
+  commentId: F:SimpleLed.DeviceTypes.GameIntegration
+  fullName: SimpleLed.DeviceTypes.GameIntegration
+  nameWithType: DeviceTypes.GameIntegration
 - uid: SimpleLed.DeviceTypes.GPU
   name: GPU
   href: api/SimpleLed.DeviceTypes.html#SimpleLed_DeviceTypes_GPU
@@ -602,6 +627,12 @@ references:
   commentId: F:SimpleLed.DeviceTypes.Keyboard
   fullName: SimpleLed.DeviceTypes.Keyboard
   nameWithType: DeviceTypes.Keyboard
+- uid: SimpleLed.DeviceTypes.Keypad
+  name: Keypad
+  href: api/SimpleLed.DeviceTypes.html#SimpleLed_DeviceTypes_Keypad
+  commentId: F:SimpleLed.DeviceTypes.Keypad
+  fullName: SimpleLed.DeviceTypes.Keypad
+  nameWithType: DeviceTypes.Keypad
 - uid: SimpleLed.DeviceTypes.LedStrip
   name: LedStrip
   href: api/SimpleLed.DeviceTypes.html#SimpleLed_DeviceTypes_LedStrip
@@ -656,32 +687,19 @@ references:
   commentId: T:SimpleLed.DriverDetails
   fullName: SimpleLed.DriverDetails
   nameWithType: DriverDetails
-- uid: SimpleLed.DriverDetails.Name
-  name: Name
-  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_Name
-  commentId: P:SimpleLed.DriverDetails.Name
-  fullName: SimpleLed.DriverDetails.Name
-  nameWithType: DriverDetails.Name
-- uid: SimpleLed.DriverDetails.Name*
-  name: Name
-  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_Name_
-  commentId: Overload:SimpleLed.DriverDetails.Name
+- uid: SimpleLed.DriverDetails.HomeFolder
+  name: HomeFolder
+  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_HomeFolder
+  commentId: P:SimpleLed.DriverDetails.HomeFolder
+  fullName: SimpleLed.DriverDetails.HomeFolder
+  nameWithType: DriverDetails.HomeFolder
+- uid: SimpleLed.DriverDetails.HomeFolder*
+  name: HomeFolder
+  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_HomeFolder_
+  commentId: Overload:SimpleLed.DriverDetails.HomeFolder
   isSpec: "True"
-  fullName: SimpleLed.DriverDetails.Name
-  nameWithType: DriverDetails.Name
-- uid: SimpleLed.DriverDetails.Platform
-  name: Platform
-  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_Platform
-  commentId: P:SimpleLed.DriverDetails.Platform
-  fullName: SimpleLed.DriverDetails.Platform
-  nameWithType: DriverDetails.Platform
-- uid: SimpleLed.DriverDetails.Platform*
-  name: Platform
-  href: api/SimpleLed.DriverDetails.html#SimpleLed_DriverDetails_Platform_
-  commentId: Overload:SimpleLed.DriverDetails.Platform
-  isSpec: "True"
-  fullName: SimpleLed.DriverDetails.Platform
-  nameWithType: DriverDetails.Platform
+  fullName: SimpleLed.DriverDetails.HomeFolder
+  nameWithType: DriverDetails.HomeFolder
 - uid: SimpleLed.DriverProperties
   name: DriverProperties
   href: api/SimpleLed.DriverProperties.html
@@ -1016,6 +1034,12 @@ references:
   isSpec: "True"
   fullName: SimpleLed.ISimpleLed.Configure
   nameWithType: ISimpleLed.Configure
+- uid: SimpleLed.ISimpleLed.DeviceRescanRequired
+  name: DeviceRescanRequired
+  href: api/SimpleLed.ISimpleLed.html#SimpleLed_ISimpleLed_DeviceRescanRequired
+  commentId: E:SimpleLed.ISimpleLed.DeviceRescanRequired
+  fullName: SimpleLed.ISimpleLed.DeviceRescanRequired
+  nameWithType: ISimpleLed.DeviceRescanRequired
 - uid: SimpleLed.ISimpleLed.GetConfig*
   name: GetConfig
   href: api/SimpleLed.ISimpleLed.html#SimpleLed_ISimpleLed_GetConfig_
@@ -1556,6 +1580,12 @@ references:
   isSpec: "True"
   fullName: SimpleLed.SLSManager.LoadConfigs
   nameWithType: SLSManager.LoadConfigs
+- uid: SimpleLed.SLSManager.RescanRequired
+  name: RescanRequired
+  href: api/SimpleLed.SLSManager.html#SimpleLed_SLSManager_RescanRequired
+  commentId: E:SimpleLed.SLSManager.RescanRequired
+  fullName: SimpleLed.SLSManager.RescanRequired
+  nameWithType: SLSManager.RescanRequired
 - uid: SimpleLed.SLSManager.SaveConfig(SimpleLed.ISimpleLedWithConfig)
   name: SaveConfig(ISimpleLedWithConfig)
   href: api/SimpleLed.SLSManager.html#SimpleLed_SLSManager_SaveConfig_SimpleLed_ISimpleLedWithConfig_

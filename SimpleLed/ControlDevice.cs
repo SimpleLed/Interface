@@ -2,9 +2,24 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using SimpleLed.RawInput;
 
 namespace SimpleLed
 {
+    public class InteractiveControlDevice : ControlDevice
+    {
+        public void HandleInput(KeyPressEvent e)
+        {
+            TriggerAllMapped(new ControlDevice.TriggerEventArgs
+            {
+                FloatX = (e.XPosition / (float)GridWidth),
+                FloatY = (e.YPosition / (float)GridHeight),
+                X = e.XPosition,
+                Y = e.YPosition
+            });
+        }
+    }
+
     /// <summary>
     /// Represents a single device capable of consuming or producing RGB LEDs
     /// </summary>
@@ -61,6 +76,17 @@ namespace SimpleLed
         /// Name of device
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Rather than use the name of the driver, use this as the title
+        /// </summary>
+        public string TitleOverride { get; set; }
+
+        /// <summary>
+        /// Name of device the device is connected to.
+        /// Used for drivers that support multiple devices, ie Lightning node pros
+        /// </summary>
+        public string ConnectedTo { get; set; }
         /// <summary>
         /// Device type. This can be free text but recommended to be consumed from the DeviceTypes static to ensure compatibility with hosts.
         /// </summary>
