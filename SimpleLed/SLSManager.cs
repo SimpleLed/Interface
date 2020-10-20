@@ -24,7 +24,7 @@ namespace SimpleLed
         public event Events.DeviceChangeEventHandler DeviceRemoved;
 
         private readonly string configPath;
-
+        private List<USBModels.USBDeviceInfo> currentUSBDevices;
         public ObservableCollection<ISimpleLed> Drivers = new ObservableCollection<ISimpleLed>();
 
         /// <summary>
@@ -62,9 +62,48 @@ namespace SimpleLed
             //Thread.Sleep(1000);
 
             configPath = cfgPath;
-
+            currentUSBDevices = SLSManager.GetUSBDevices(true);
             InternalSolids.RawInput = new RawInput.RawInput(handle);
+            InternalSolids.RawInput.OnDeviceChange = OnDeviceChange;
             InternalSolids.RawInput.AddMessageFilter(); // Adding a message filter will cause keypresses to be handled
+
+        }
+
+        private void OnDeviceChange()
+        {
+            List<USBModels.USBDeviceInfo> newDevices = SLSManager.GetUSBDevices(true);
+
+            List<USBModels.USBDeviceInfo> newlyConnectedDevices = newDevices.Where(x => currentUSBDevices.All(p => p.VID != x.VID && p.HID != x.HID)).ToList();
+            List<USBModels.USBDeviceInfo> newlyDisconnectedDevices = currentUSBDevices.Where(x => newDevices.All(p => p.VID != x.VID && p.HID != x.HID)).ToList();
+
+            foreach (ISimpleLed simpleLed in Drivers)
+            {
+                var props = simpleLed.GetProperties();
+                if (props.SupportedDevices != null)
+                {
+                    var interestedAdds = props.SupportedDevices.Where(x =>
+                            newlyConnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID)))
+                        .ToList();
+
+                    foreach (USBDevice interestedAdd in interestedAdds)
+                    {
+                        simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value,true);
+                    }
+
+
+                    var interestedRemoves = props.SupportedDevices.Where(x =>
+                            newlyDisconnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID)))
+                        .ToList();
+
+                    foreach (USBDevice interestedAdd in interestedRemoves)
+                    {
+                        simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value,false);
+                    }
+
+                }
+            }
+
+            currentUSBDevices = newDevices.ToList();
 
         }
 
@@ -185,7 +224,7 @@ namespace SimpleLed
             {"USB Audio Device","Headset"}
         };
 
-        internal static List<USBModels.USBDeviceInfo> GetUSBDevices()
+        internal static List<USBModels.USBDeviceInfo> GetUSBDevices(bool simpleMode = false)
         {
             //string json = File.ReadAllText("fakeHardware.json");
             //return JsonConvert.DeserializeObject<List<USBModels.USBDeviceInfo>>(json);
@@ -220,9 +259,12 @@ namespace SimpleLed
                         dvc.HID = dvc.PID.HexToInt();
                         dvc.VID = dvc.VEN.HexToInt();
 
-                        string prettyName = "";
-                        prettyName = DisableHardware.GetName(n => n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
-                        dvc.PrettyName = prettyName;
+                        if (!simpleMode)
+                        {
+                            string prettyName = "";
+                            prettyName = DisableHardware.GetName(n => n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
+                            dvc.PrettyName = prettyName;
+                        }
                     }
                     catch
                     {
@@ -283,7 +325,7 @@ namespace SimpleLed
 
         private void Drv_DeviceRemoved(object sender, Events.DeviceChangeEventArgs e)
         {
-            DeviceRemoved?.Invoke(sender,e);
+            DeviceRemoved?.Invoke(sender, e);
         }
 
         private void DeviceRescanRequired(ISimpleLed drv)

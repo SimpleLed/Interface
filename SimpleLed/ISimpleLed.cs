@@ -62,7 +62,7 @@ namespace SimpleLed
         /// <returns>pretty driver name as string</returns>
         string Name();
 
-        void InterestedUSBChange(int VID, int PID);
+        void InterestedUSBChange(int VID, int PID, bool connected);
 
     }
 

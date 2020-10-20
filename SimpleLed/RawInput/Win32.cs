@@ -40,6 +40,9 @@ namespace SimpleLed.RawInput
         internal const int FAPPCOMMANDMOUSE = 0x8000;
         internal const int FAPPCOMMANDOEM = 0x1000;
 
+        internal const int DBT_DEVICEARRIVAL = 0x8000; // system detected a new device
+        internal const int DBT_DEVICEREMOVECOMPLETE = 0x8004; //device was removed
+
         public const int WM_KEYDOWN = 0x0100;
         public const int WM_KEYUP = 0x0101;
         internal const int WM_SYSKEYDOWN = 0x0104;
