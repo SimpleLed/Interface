@@ -226,9 +226,6 @@ namespace SimpleLed
 
         internal static List<USBModels.USBDeviceInfo> GetUSBDevices(bool simpleMode = false)
         {
-            //string json = File.ReadAllText("fakeHardware.json");
-            //return JsonConvert.DeserializeObject<List<USBModels.USBDeviceInfo>>(json);
-
             List<USBModels.USBDeviceInfo> devices = new List<USBModels.USBDeviceInfo>();
 
             ManagementObjectCollection collection;
@@ -239,39 +236,49 @@ namespace SimpleLed
 
             foreach (ManagementBaseObject device in collection)
             {
-                USBModels.USBDeviceInfo dvc = (new USBModels.USBDeviceInfo(
-                       (string)device.GetPropertyValue("DeviceID"),
-                       (string)device.GetPropertyValue("PNPDeviceID"),
-                       (string)device.GetPropertyValue("Description"))
-                { Name = (string)device.GetPropertyValue("Name") });
-
-                var parts = dvc.DeviceID.Split('\\');
-                dvc.Root = parts[0];
-                if (dvc.DeviceID.Contains("VEN_") || dvc.DeviceID.Contains("VID_"))
+                try
                 {
-                    var things = parts[1].Split('&');
+                    USBModels.USBDeviceInfo dvc = (new USBModels.USBDeviceInfo(
+                            (string) device.GetPropertyValue("DeviceID"),
+                            (string) device.GetPropertyValue("PNPDeviceID"),
+                            (string) device.GetPropertyValue("Description"))
+                        {Name = (string) device.GetPropertyValue("Name")});
 
-                    dvc.VEN = things[0].Split('_').Last();
-                    dvc.PID = things[1].Split('_').Last();
-
-                    try
+                    var parts = dvc.DeviceID.Split('\\');
+                    dvc.Root = parts[0];
+                    if (dvc.DeviceID.Contains("VEN_") || dvc.DeviceID.Contains("VID_") && parts.Length > 1)
                     {
-                        dvc.HID = dvc.PID.HexToInt();
-                        dvc.VID = dvc.VEN.HexToInt();
+                        var things = parts[1].Split('&');
 
-                        if (!simpleMode)
+                        if (things.Length > 1)
                         {
-                            string prettyName = "";
-                            prettyName = DisableHardware.GetName(n => n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
-                            dvc.PrettyName = prettyName;
+                            dvc.VEN = things[0].Split('_').Last();
+                            dvc.PID = things[1].Split('_').Last();
+
+                            try
+                            {
+                                dvc.HID = dvc.PID.HexToInt();
+                                dvc.VID = dvc.VEN.HexToInt();
+
+                                if (!simpleMode)
+                                {
+                                    string prettyName = "";
+                                    prettyName = DisableHardware.GetName(n =>
+                                        n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
+                                    dvc.PrettyName = prettyName;
+                                }
+                            }
+                            catch
+                            {
+                            }
                         }
-                    }
-                    catch
-                    {
+
+                        devices.Add(dvc);
                     }
                 }
-
-                devices.Add(dvc);
+                catch
+                {
+                }
             }
 
             collection.Dispose();

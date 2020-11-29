@@ -94,6 +94,8 @@ namespace SimpleLed
     /// </summary>
     public class DriverProperties
     {
+        public string Name { get; set; }
+
         /// <summary>
         /// Can this device Pull LEDs from its Device/SDK?
         /// </summary>
@@ -143,6 +145,18 @@ namespace SimpleLed
 
         public List<USBDevice> SupportedDevices { get; set; }
 
+        public ProductCategory ProductCategory { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid AuthorId { get; set; }
+        public Decimal Price { get; set; }
+
+    }
+
+    public enum ProductCategory
+    {
+        Hardware = 1,
+        Effect = 2,
+        GameIntegration = 4
     }
 
 

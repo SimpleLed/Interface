@@ -148,7 +148,7 @@ namespace SimpleLed
                 {
                     var removeList = mappedDevices.Where(x => (DateTime.Now - x.LastMapped).TotalSeconds > 1);
 
-                    foreach (var mappedListItem in removeList)
+                    foreach (var mappedListItem in removeList.ToList())
                     {
                         mappedDevices.Remove(mappedListItem);
                     }
