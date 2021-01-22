@@ -280,7 +280,7 @@ namespace SimpleLed
                 DeviceName.Capacity = Native.MAX_DEV_LEN;
                 for (i = 0; Native.SetupDiEnumDeviceInfo(hDevInfo, i, DeviceInfoData); i++)
                 {
-                    Debug.WriteLine(hDevInfo + " - " + i + "- " + DeviceInfoData.classGuid);
+                    //Debug.WriteLine(hDevInfo + " - " + i + "- " + DeviceInfoData.classGuid);
                     //Declare vars
                     int skip = 0;
                     while (!Native.SetupDiGetDeviceRegistryProperty(hDevInfo,
@@ -303,7 +303,7 @@ namespace SimpleLed
 
                     if (skip < 1024)
                     {
-                        Debug.WriteLine(skip+ " Got Name " +DeviceName.ToString());
+                        //Debug.WriteLine(skip+ " Got Name " +DeviceName.ToString());
                         return (DeviceName.ToString());
                     }
                 }

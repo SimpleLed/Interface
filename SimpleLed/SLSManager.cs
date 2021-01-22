@@ -49,17 +49,12 @@ namespace SimpleLed
                 Debug.WriteLine("Running kb monitor");
                 Application.Run(dummy);
                 Debug.WriteLine("kb monitor exit");
-
             });
-
-
+            
             while (handle == IntPtr.Zero)
             {
                 Thread.Sleep(33);
             }
-
-
-            //Thread.Sleep(1000);
 
             configPath = cfgPath;
             currentUSBDevices = SLSManager.GetUSBDevices(true);
@@ -67,6 +62,82 @@ namespace SimpleLed
             InternalSolids.RawInput.OnDeviceChange = OnDeviceChange;
             InternalSolids.RawInput.AddMessageFilter(); // Adding a message filter will cause keypresses to be handled
 
+        }
+        private List<CustomDeviceSpecification> userTemplates = new List<CustomDeviceSpecification>();
+
+        public void AddUserTemplate(CustomDeviceSpecification cds)
+        {
+            userTemplates.Add(cds);
+        }
+
+        public List<CustomDeviceSpecification> GetCustomDeviceSpecifications()
+        {
+            List<CustomDeviceSpecification> result = new List<CustomDeviceSpecification>();
+
+            result.Add(new GenericLEDStrip());
+            result.Add(new EightByEightMatrix());
+            result.Add(new GenericAIO());
+            result.Add(new GenericBulb());
+            result.Add(new GenericCooler());
+            result.Add(new GenericFan());
+            result.Add(new GenericGPU());
+            result.Add(new GenericHeadSet());
+            result.Add(new GenericKeyboard());
+            result.Add(new GenericKeypad());
+            result.Add(new GenericLEDStrip());
+            result.Add(new GenericMemory());
+            result.Add(new GenericMotherboard());
+            result.Add(new GenericMouse());
+            result.Add(new GenericMousePad());
+            result.Add(new GenericOther());
+            result.Add(new GenericPSU());
+            result.Add(new GenericSpeakers());
+            result.Add(new GenericWaterBlock());
+            foreach (ISimpleLed simpleLed in Drivers)
+            {
+                result.AddRange(simpleLed?.GetProperties()?.GetCustomDeviceSpecifications?.Invoke() ?? new List<CustomDeviceSpecification>());
+            }
+
+            result.AddRange(userTemplates);
+            return result;
+        }
+
+        public List<Type> GetMappers(ISimpleLed driver)
+        {
+            List<Type> result = new List<Type>();
+            result.Add(typeof(LMatrix));
+            result.Add(typeof(SMatrix));
+
+            //TODO fix STA stuff
+            //var props = driver.GetProperties();
+            //if (props?.GetMappers != null)
+            //{
+            //    result.AddRange(props.GetMappers());
+            //}
+
+            return result;
+        }
+
+        public static Dictionary<string, Type> GetMapperLookup(ISimpleLed driver)
+        {
+            List<Type> result = new List<Type>();
+            result.Add(typeof(LMatrix));
+            result.Add(typeof(SMatrix));
+
+            var props = driver.GetProperties();
+            if (props?.GetMappers != null)
+            {
+                result.AddRange(props.GetMappers());
+            }
+
+            Dictionary<string,Type> r = new Dictionary<string, Type>();
+            foreach (Type type in result)
+            {
+                Mapper t = (Mapper) Activator.CreateInstance(type);
+                r.Add(t.GetName(), type);
+            }
+
+            return r;
         }
 
         private void OnDeviceChange()
@@ -81,25 +152,31 @@ namespace SimpleLed
                 var props = simpleLed.GetProperties();
                 if (props.SupportedDevices != null)
                 {
-                    var interestedAdds = props.SupportedDevices.Where(x =>
-                            newlyConnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID)))
-                        .ToList();
+                    List<USBDevice> interestedAdds = props.SupportedDevices.Where(x => newlyConnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID))).ToList();
 
                     foreach (USBDevice interestedAdd in interestedAdds)
                     {
-                        simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value,true);
+                        try
+                        {
+                            simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value, true);
+                        }
+                        catch
+                        {
+                        }
                     }
-
-
-                    var interestedRemoves = props.SupportedDevices.Where(x =>
-                            newlyDisconnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID)))
-                        .ToList();
+                    
+                    List<USBDevice> interestedRemoves = props.SupportedDevices.Where(x => newlyDisconnectedDevices.Any(p => x.VID == p.VID && (x.HID == null || x.HID.Value == p.HID))).ToList();
 
                     foreach (USBDevice interestedAdd in interestedRemoves)
                     {
-                        simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value,false);
+                        try
+                        {
+                            simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value, false);
+                        }
+                        catch
+                        {
+                        }
                     }
-
                 }
             }
 
@@ -125,93 +202,20 @@ namespace SimpleLed
         public static List<USBDevice> GetSupportedDevices(List<USBDevice> devices)
         {
             List<USBModels.USBDeviceInfo> usbDevices = GetUSBDevices();
-            string json = JsonConvert.SerializeObject(usbDevices);
-
-            // File.WriteAllText("fakeHardware.json",json);
+            
             List<USBDevice> result = devices.ToList();
+
             foreach (USBDevice hidDeviceInfo in result)
             {
+                var manu = usbDevices.Where(x => x.VID == hidDeviceInfo.VID).ToList();
+
                 if (hidDeviceInfo.HID.HasValue)
                 {
+                    var test = manu.FirstOrDefault(x => x.HID == hidDeviceInfo.HID.Value);
+
                     hidDeviceInfo.IsConnected = usbDevices.Any(x => x.HID == hidDeviceInfo.HID && x.VID == hidDeviceInfo.VID);
                     continue;
                 }
-                //else
-                //{
-                //    var related = usbDevices.Where(t => !string.IsNullOrWhiteSpace(t.VEN)
-                //                                        && Extensions.HexToInt(t.VEN) > 0
-                //                                        && Extensions.HexToInt(t.VEN) == hidDeviceInfo.VID).ToList();
-
-
-                //    List<int> pids = new List<int>();
-
-                //    //Debug.WriteLine("Looking for " + hidDeviceInfo.DeviceType);
-                //    foreach (var r in related)
-                //    {
-                //        if (pids.All(x => x != r.HID))
-                //        {
-                //            pids.Add(r.HID);
-                //        }
-                //    }
-
-                //    foreach (var pid in pids)
-                //    {
-                //        var pidHardware = related.Where(x => x.HID == pid).ToList();
-                //        bool keepProcessing = true;
-
-                //        int ct = 0;
-                //        foreach (var temp in pidHardware)
-                //        {
-
-                //           // Debug.WriteLine(pid + " -- " + ct + " - " + temp.PrettyName.Substring(0, temp.PrettyName.Length - 1) + " / " + temp.DeviceID + " | " + temp.Description);
-                //            bool isExpectedHardwareType = DeviceClasses.ContainsKey(temp.Description);
-
-                //            if (isExpectedHardwareType && keepProcessing)
-                //            {
-                //                //if (DeviceClasses[temp.Description] == hidDeviceInfo.DeviceType)
-                //                {
-                //                    //Debug.WriteLine(pid + " -- " + ct + " - its this one? " + temp.PrettyName.Substring(0, temp.PrettyName.Length - 1) + " / " + temp.Description + " / " + DeviceClasses[temp.Description] + " / " + temp.DeviceID);
-                //                }
-
-                //                //keepProcessing = false;
-                //            }
-
-                //            ct++;
-
-                //        }
-                //    }
-
-
-
-                //    var g = related.ToList().GroupBy(x => x.PID);
-
-                //    bool found = false;
-                //    foreach (var glist in g)
-                //    {
-                //        //Debug.WriteLine(glist.First().HID);
-                //        if (!found)
-                //        {
-                //            List<USBModels.USBDeviceInfo> gdevices = glist.ToList();
-
-                //            var firstFound = gdevices.FirstOrDefault(x => DeviceClasses.ContainsKey(x.Description));
-                //            if (firstFound != null)
-                //            {
-                //                if (hidDeviceInfo.DeviceType == DeviceClasses[firstFound.Description])
-                //                {
-                //                    found = true;
-                //                    hidDeviceInfo.HID = firstFound.HID;
-                //                    hidDeviceInfo.DeviceName = g.First().First().Description;
-                //                    hidDeviceInfo.DevicePrettyName = g.First().First().PrettyName;
-
-                //                }
-                //            }
-
-                //        }
-                //    }
-
-                //    hidDeviceInfo.IsConnected = found;
-
-                //}
             }
 
             return result.Where(x => x.IsConnected).ToList();
@@ -239,10 +243,10 @@ namespace SimpleLed
                 try
                 {
                     USBModels.USBDeviceInfo dvc = (new USBModels.USBDeviceInfo(
-                            (string) device.GetPropertyValue("DeviceID"),
-                            (string) device.GetPropertyValue("PNPDeviceID"),
-                            (string) device.GetPropertyValue("Description"))
-                        {Name = (string) device.GetPropertyValue("Name")});
+                            (string)device.GetPropertyValue("DeviceID"),
+                            (string)device.GetPropertyValue("PNPDeviceID"),
+                            (string)device.GetPropertyValue("Description"))
+                    { Name = (string)device.GetPropertyValue("Name") });
 
                     var parts = dvc.DeviceID.Split('\\');
                     dvc.Root = parts[0];
@@ -257,15 +261,18 @@ namespace SimpleLed
 
                             try
                             {
-                                dvc.HID = dvc.PID.HexToInt();
-                                dvc.VID = dvc.VEN.HexToInt();
-
-                                if (!simpleMode)
+                                if (!string.IsNullOrWhiteSpace(dvc.PID))
                                 {
-                                    string prettyName = "";
-                                    prettyName = DisableHardware.GetName(n =>
-                                        n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
-                                    dvc.PrettyName = prettyName;
+                                    dvc.HID = dvc.PID.HexToInt();
+                                    dvc.VID = dvc.VEN.HexToInt();
+
+                                    if (!simpleMode)
+                                    {
+                                        string prettyName = "";
+                                        prettyName = DisableHardware.GetName(n =>
+                                            n.ToUpperInvariant().Contains("VID_" + dvc.VEN + "&PID_" + dvc.PID));
+                                        dvc.PrettyName = prettyName;
+                                    }
                                 }
                             }
                             catch
@@ -345,40 +352,27 @@ namespace SimpleLed
         /// </summary>
         public event EventHandler RescanRequired;
 
-        /// <summary>
-        /// Gets a List of all the devices provided by the loaded SimpleLed Drivers
-        /// </summary>
-        /// <returns>List of ControlDevice</returns>
-        //public List<ControlDevice> GetDevices()
-        //{
-        //    List<ControlDevice> controlDevices = new List<ControlDevice>();
-        //    foreach (var simpleLedDriver in Drivers)
-        //    {
-        //        try
-        //        {
-        //            var devices = simpleLedDriver.GetDevices();
-        //            if (devices != null)
-        //            {
-        //                controlDevices.AddRange(devices);
-        //            }
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Debug.WriteLine(e.Message);
-        //        }
-        //    }
-
-        //    return controlDevices;
-        //}
-
-        /// <summary>
-        /// Runs the initial non-constructor setup for all loaded SimpleLed drivers.
-        /// </summary>
         public void Init()
         {
             foreach (ISimpleLed simpleLedDriver in Drivers)
             {
                 simpleLedDriver.Configure(null);
+            }
+        }
+
+        private ColorProfile colorProfile;
+
+        public ColorProfile ColorProfile
+        {
+            get => colorProfile;
+            set
+            {
+                colorProfile = value;
+                foreach (ISimpleLed simpleLedDriver in Drivers)
+                {
+                    var props = simpleLedDriver.GetProperties();
+                    props.SetColorProfileAction?.Invoke(value);
+                }
             }
         }
 
@@ -448,7 +442,13 @@ namespace SimpleLed
                 MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
             });
             string path = configPath + "\\" + simpleLed.GetProperties().Id + "_config.json";
-            File.WriteAllText(path, json);
+            try
+            {
+                File.WriteAllText(path, json);
+            }
+            catch
+            {
+            }
         }
 
     }

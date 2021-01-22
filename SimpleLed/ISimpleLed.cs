@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using SimpleLed.RawInput;
 
@@ -12,12 +13,6 @@ namespace SimpleLed
     {
         event Events.DeviceChangeEventHandler DeviceAdded;
         event Events.DeviceChangeEventHandler DeviceRemoved;
-
-
-        /// <summary>
-        /// Event that is fired when the number of control devices this driver is offering changes
-        /// </summary>
-        //event EventHandler DeviceRescanRequired;
 
         /// <summary>
         /// Initial config/setup post constructor
@@ -64,6 +59,9 @@ namespace SimpleLed
 
         void InterestedUSBChange(int VID, int PID, bool connected);
 
+        //void SetDeviceOverride(ControlDevice controlDevice, CustomDeviceSpecification deviceSpec);
+
+       // List<CustomDeviceSpecification> GetCustomDeviceSpecifications();
     }
 
     /// <summary>
@@ -71,6 +69,8 @@ namespace SimpleLed
     /// </summary>
     public interface ISimpleLedWithConfig : ISimpleLed
     {
+
+
         /// <summary>
         /// Get custom UI UserControl. Should encompass driver specifics and device specifics. With the latter, a ControlDevice is passed which is assumed to be the specific device being configured.
         /// </summary>
@@ -150,6 +150,26 @@ namespace SimpleLed
         public Guid AuthorId { get; set; }
         public Decimal Price { get; set; }
 
+        public Action<ColorProfile> SetColorProfileAction { get; set; }
+
+        public List<CustomDeviceSpecification> DeviceSpecifications { get; set; }
+
+
+        public List<Mapper> Mappers { get; set; }
+
+        
+        public Action<ControlDevice, CustomDeviceSpecification> SetDeviceOverride { get; set; }
+
+        public Func<List<CustomDeviceSpecification>> GetCustomDeviceSpecifications { get; set; }
+
+        public Func<List<Type>> GetMappers { get; set; }
+    }
+
+    public enum OverrideSupport
+    {
+        None,
+        Self,
+        All
     }
 
     public enum ProductCategory

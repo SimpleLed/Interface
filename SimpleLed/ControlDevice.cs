@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Controls;
 using SimpleLed.RawInput;
 
 namespace SimpleLed
@@ -56,26 +57,99 @@ namespace SimpleLed
             }
         }
 
+        public CustomDeviceSpecification CustomDeviceSpecification { get; set; }
+
         /// <summary>
         /// If this device supports 2D mode and this flag is set, Push will push from the Grid rather than the LEDs array
         /// </summary>
         public bool In2DMode { get; set; }
+
         /// <summary>
         /// Signifies if this device can handle 2d led arrays
         /// </summary>
-        public bool Has2DSupport { get; set; }
+        private bool? has2dSupport;
+
+        public bool Has2DSupport
+        {
+            get
+            {
+                if (has2dSupport == null)
+                {
+                    return GridWidth > 1 && GridHeight > 1;
+                }
+                else
+                {
+                    return has2dSupport.Value;
+                }
+            }
+
+            set
+            {
+                has2dSupport = value;
+            }
+        }
+
+        private int gridWidth;
         /// <summary>
         /// if this device has 2d support, this signifies the width of the 2d grid
         /// </summary>
-        public int GridWidth { get; set; }
+        public int GridWidth {
+            get
+            {
+                if (CustomDeviceSpecification != null)
+                {
+                    return CustomDeviceSpecification.GridWidth;
+                }
+                else
+                {
+                    return gridWidth;
+                }
+            }
+            set => gridWidth = value;
+        }
+
+        public int gridHeight;
         /// <summary>
         /// if this device has 2d support, this signifies the height of the 2d grid
         /// </summary>
-        public int GridHeight { get; set; }
+        public int GridHeight
+        {
+            get
+            {
+                if (CustomDeviceSpecification != null)
+                {
+                    return CustomDeviceSpecification.GridHeight;
+                }
+                else
+                {
+                    return gridHeight;
+                }
+            }
+            set => gridHeight = value;
+        }
+
+
+        private string name;
         /// <summary>
         /// Name of device
         /// </summary>
-        public string Name { get; set; }
+        public string Name {
+            get
+            {
+                return name;
+
+                if (CustomDeviceSpecification != null)
+                {
+                    return CustomDeviceSpecification.Name;
+                }
+                else
+                {
+                    return name;
+                }
+            }
+            set=>name=value; }
+
+        public OverrideSupport OverrideSupport { get; set; } = OverrideSupport.None;
 
         /// <summary>
         /// Rather than use the name of the driver, use this as the title
@@ -113,10 +187,23 @@ namespace SimpleLed
         /// </summary>
         [Obsolete]
         public bool SupportsLEDCountOverride { get; set; } = false;
+
+        private Bitmap productImage = null;
         /// <summary>
         /// 256x192 Bitmap of device
         /// </summary>
-        public Bitmap ProductImage { get; set; } = null;
+        public Bitmap ProductImage {
+            get
+            {
+                if (CustomDeviceSpecification != null)
+                {
+                    return CustomDeviceSpecification.Bitmap;
+                }
+                else
+                {
+                    return productImage;
+                }
+            } set=>productImage=value; }
 
         private readonly List<MappedListItem> mappedDevices = new List<MappedListItem>();
 
@@ -168,6 +255,8 @@ namespace SimpleLed
         /// <param name="otherDevice">Device to copy LEDs from</param>
         public void MapLEDs(ControlDevice otherDevice)
         {
+            if (LEDs.Length == 0) return;
+
             Dv_MappedToEvent(this, new MappedToEventArgs
             {
                 DestinationDevice = this,
@@ -196,11 +285,53 @@ namespace SimpleLed
                 {
                     int x = MapIndex(i);
                     var cl = bm2.GetPixel(i, 0);
-                    LEDs[x].Color.Red = cl.R;
-                    LEDs[x].Color.Green = cl.G;
-                    LEDs[x].Color.Blue = cl.B;
+
+                    if (CustomDeviceSpecification != null)
+                    {
+                        var ccl = MapWinColor(cl, CustomDeviceSpecification.RGBOrder);
+                        LEDs[x].Color.Red = ccl.Red;
+                        LEDs[x].Color.Green = ccl.Green;
+                        LEDs[x].Color.Blue = ccl.Blue;
+                    }
+                    else
+                    {
+
+                        LEDs[x].Color.Red = cl.R;
+                        LEDs[x].Color.Green = cl.G;
+                        LEDs[x].Color.Blue = cl.B;
+                    }
                 }
             }
+        }
+
+        public LEDColor MapColor(LEDColor cl, RGBOrder order)
+        {
+            switch (order)
+            {
+                case RGBOrder.RGB: return cl;
+                case RGBOrder.RBG: return new LEDColor(cl.Green, cl.Red, cl.Blue);
+                case RGBOrder.GBR: return new LEDColor(cl.Green, cl.Blue, cl.Red);
+                case RGBOrder.GRB: return new LEDColor(cl.Green, cl.Red, cl.Blue);
+                case RGBOrder.BGR: return new LEDColor(cl.Blue, cl.Green, cl.Red);
+                case RGBOrder.BRG: return new LEDColor(cl.Blue, cl.Red, cl.Green);
+            }
+
+            return cl;
+        }
+
+        public LEDColor MapWinColor(Color cl, RGBOrder order)
+        {
+            switch (order)
+            {
+                case RGBOrder.RGB: return new LEDColor(cl.R,cl.G,cl.B);
+                case RGBOrder.RBG: return new LEDColor(cl.R, cl.B, cl.G);
+                case RGBOrder.GBR: return new LEDColor(cl.G, cl.B, cl.R);
+                case RGBOrder.GRB: return new LEDColor(cl.G, cl.R, cl.B);
+                case RGBOrder.BGR: return new LEDColor(cl.B, cl.G, cl.R);
+                case RGBOrder.BRG: return new LEDColor(cl.B, cl.R, cl.G);
+            }
+
+            return new LEDColor(cl.R, cl.G, cl.B); 
         }
 
         /// <summary>
@@ -219,6 +350,24 @@ namespace SimpleLed
 
         private void MapLEDs2Dto2D(ControlDevice otherDevice)
         {
+            if (!string.IsNullOrWhiteSpace(this.CustomDeviceSpecification?.MapperName))
+            {
+                if (setMapper != this.CustomDeviceSpecification.MapperName)
+                {
+                    var d = SLSManager.GetMapperLookup(this.Driver);
+
+                    if (!d.ContainsKey(this.CustomDeviceSpecification.MapperName))
+                    {
+                        setMapper = "Failed to set";
+                        currentMapper = null;
+                    }
+                    else
+                    {
+                        setMapper = this.CustomDeviceSpecification.MapperName;
+                        currentMapper = (Mapper) Activator.CreateInstance(d[setMapper]);
+                    }
+                }
+            }
 
             Bitmap bm = new Bitmap(otherDevice.GridWidth, otherDevice.GridHeight);
 
@@ -242,10 +391,31 @@ namespace SimpleLed
                 {
                     Color cl = bm2.GetPixel(x, y);
 
-                    SetGridLED(x, y, new LEDColor(cl.R, cl.G, cl.B));
+                    if (currentMapper != null)
+                    {
+                        var led = currentMapper.GetLed(x, y, CustomDeviceSpecification);
+                        if (led < LEDs.Length)
+                        {
+                            if (CustomDeviceSpecification != null)
+                            {
+                                LEDs[led].Color = MapWinColor(cl, CustomDeviceSpecification.RGBOrder);
+                            }
+                            else
+                            {
+                                LEDs[led].Color = new LEDColor(cl.R, cl.G, cl.B);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SetGridLED(x, y, new LEDColor(cl.R, cl.G, cl.B));
+                    }
                 }
             }
         }
+
+        private string setMapper;
+        private Mapper currentMapper;
 
         /// <summary>
         /// If device supports 2d grids, this allows gets LEDs via X/Y coords

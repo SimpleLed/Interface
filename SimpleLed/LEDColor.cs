@@ -2,6 +2,16 @@
 
 namespace SimpleLed
 {
+    public static class LEDColors
+    {
+        public static LEDColor Black = new LEDColor(0,0,0);
+        public static LEDColor White = new LEDColor(255,255,255);
+
+        public static LEDColor Red = new LEDColor(255, 0, 0);
+        public static LEDColor Green = new LEDColor(0, 255, 0);
+        public static LEDColor Blue = new LEDColor(0, 0, 255);
+    }
+
     /// <summary>
     /// SimpleLed specific Color system
     /// </summary>
