@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Media;
 
 namespace SimpleLed
 {
@@ -9,7 +12,151 @@ namespace SimpleLed
     /// </summary>
     public abstract class BaseViewModel : IBindable
     {
+
+        protected BaseViewModel()
+        {
+
+            InternalSolids.themeWatcher.OnThemeChanged += Watcher_OnThemeChanged;
+
+            var test = (SolidColorBrush)SystemParameters.WindowGlassBrush;
+            AccentColor = test.Color;
+            AccentSolidColorBrush = new SolidColorBrush(AccentColor);
+            AccentSolidColorBrush.Freeze();
+
+            RaiseChanges();
+        }
+
+        private void Watcher_OnThemeChanged(object sender, ThemeWatcher.ThemeChangeEventArgs e)
+        {
+            CurrentTheme = e.CurrentTheme;
+
+            PrimaryColor = CurrentTheme == ThemeWatcher.WindowsTheme.Dark ? Colors.White : Colors.Black;
+            PrimarySolidColorBrush = new SolidColorBrush(PrimaryColor);
+
+            SecondaryColor = CurrentTheme == ThemeWatcher.WindowsTheme.Dark ? Colors.Black : Colors.White;
+            SecondarySolidColorBrush = new SolidColorBrush(SecondaryColor);
+
+            AccentSolidColorBrush = new SolidColorBrush(e.AccentColor);
+            AccentSolidColorBrush.Freeze();
+
+            AccentColor = e.AccentColor;
+
+            Debug.WriteLine("ThemeChange: ***********");
+            Debug.WriteLine("Primary: " + PrimaryColor);
+            Debug.WriteLine("Secondary: " + SecondaryColor);
+            Debug.WriteLine("Accent: " + AccentColor);
+
+            RaiseChanges();
+        }
+
+        private SolidColorBrush primarySolidColorBrush = new SolidColorBrush(Colors.White);
+        public SolidColorBrush PrimarySolidColorBrush
+        {
+            get => primarySolidColorBrush;
+            set
+            {
+                value.Freeze();
+                SetProperty(ref primarySolidColorBrush, value);
+            }
+        }
+
+        private SolidColorBrush secondarySolidColorBrush = new SolidColorBrush(Colors.Black);
+        public SolidColorBrush SecondarySolidColorBrush
+        {
+            get => secondarySolidColorBrush;
+            set
+            {
+                value.Freeze();
+                SetProperty(ref secondarySolidColorBrush, value);
+            }
+        }
+
+        private SolidColorBrush accentSolidColorBrush = new SolidColorBrush(Colors.CornflowerBlue);
+        public SolidColorBrush AccentSolidColorBrush
+        {
+            get => accentSolidColorBrush;
+            set
+            {
+                value.Freeze();
+                SetProperty(ref accentSolidColorBrush, value);
+            }
+        }
+
+        private Color primaryColor = Colors.White;
+        private Color secondaryColor = Colors.Black;
+        private Color accentColor = Colors.CornflowerBlue;
+        public Color PrimaryColor
+        {
+            get => primaryColor;
+            set { SetProperty(ref primaryColor, value); }
+        }
+
+        public Color SecondaryColor
+        {
+            get => secondaryColor;
+            set => SetProperty(ref secondaryColor, value);
+        }
+
+        public Color AccentColor
+        {
+            get => accentColor;
+            set => SetProperty(ref accentColor, value);
+        }
+        
+        public Color PrimaryLow => new Color { A = 0x33, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        public Color PrimaryMediumLow => new Color { A = 0x66, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        public Color PrimaryMedium => new Color { A = 0x99, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        public Color PrimaryMediumHigh => new Color { A = 0xCC, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+
+
+        public Color SecondaryLow => new Color { A = 0x33, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        public Color SecondaryMediumLow => new Color { A = 0x66, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        public Color SecondaryMedium => new Color { A = 0x99, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        public Color SecondaryMediumHigh => new Color { A = 0xCC, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+
+        public SolidColorBrush PrimaryLowSolidColorBrush => new SolidColorBrush(PrimaryLow);
+        public SolidColorBrush PrimaryMediumLowSolidColorBrush => new SolidColorBrush(PrimaryMediumLow);
+        public SolidColorBrush PrimaryMediumSolidColorBrush => new SolidColorBrush(PrimaryMedium);
+        public SolidColorBrush PrimaryMediumHighSolidColorBrush => new SolidColorBrush(PrimaryMediumHigh);
+
+
+        public SolidColorBrush SecondaryLowSolidColorBrush => new SolidColorBrush(SecondaryLow);
+        public SolidColorBrush SecondaryMediumLowSolidColorBrush => new SolidColorBrush(SecondaryMediumLow);
+        public SolidColorBrush SecondaryMediumSolidColorBrush => new SolidColorBrush(SecondaryMedium);
+        public SolidColorBrush SecondaryMediumHighSolidColorBrush => new SolidColorBrush(SecondaryMediumHigh);
+
+
+        private void RaiseChanges()
+        {
+            this.OnPropertyChanged("PrimaryLow");
+            this.OnPropertyChanged("PrimaryMediumLow");
+            this.OnPropertyChanged("PrimaryMedium");
+            this.OnPropertyChanged("PrimaryMediumHigh");
+
+            this.OnPropertyChanged("SecondaryLow");
+            this.OnPropertyChanged("SecondaryMediumLow");
+            this.OnPropertyChanged("SecondaryMedium");
+            this.OnPropertyChanged("SecondaryMediumHigh");
+
+            this.OnPropertyChanged("PrimaryLowSolidColorBrush");
+            this.OnPropertyChanged("PrimaryMediumLowSolidColorBrush");
+            this.OnPropertyChanged("PrimaryMediumSolidColorBrush");
+            this.OnPropertyChanged("PrimaryMediumHighSolidColorBrush");
+
+            this.OnPropertyChanged("SecondaryLowSolidColorBrush");
+            this.OnPropertyChanged("SecondaryMediumLowSolidColorBrush");
+            this.OnPropertyChanged("SecondaryMediumSolidColorBrush");
+            this.OnPropertyChanged("SecondaryMediumHighSolidColorBrush");
+        }
         #region Events
+
+        private ThemeWatcher.WindowsTheme currentTheme;
+
+        public ThemeWatcher.WindowsTheme CurrentTheme
+        {
+            get => currentTheme;
+            set => SetProperty(ref currentTheme, value);
+        }
 
         /// <summary>
         /// Occurs when a property value changes.

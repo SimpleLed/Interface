@@ -144,16 +144,8 @@ public class ReleaseNumber : IEquatable<ReleaseNumber>, IComparable<ReleaseNumbe
         return new ReleaseNumber(a.Major, a.Minor, a.Revision, a.Build - b.Value);
     }
 
-    public override string ToString()
-    {
-        string b = Build.ToString();
-        while (b.Length < 4)
-        {
-            b = "0" + b;
-        }
-
-        return $"{Major}.{Minor}.{Revision}.{b}";
-    }
+    public override string ToString()=> $"{Major}.{Minor}.{Revision}.{Build.ToString().PadLeft(4,'0')}";
+    
 
     public ReleaseNumber(int major, int minor, int revision, int build)
     {
@@ -172,15 +164,17 @@ public class ReleaseNumber : IEquatable<ReleaseNumber>, IComparable<ReleaseNumbe
     public int CompareTo(ReleaseNumber other)
     {
         if (other.Major > Major) return -1;
-        if (other.Minor > Minor) return -1;
-        if (other.Revision > Revision) return -1;
-        if (other.Build > Build) return -1;
-
         if (other.Major < Major) return 1;
-        if (other.Minor < Minor) return 1;
-        if (other.Revision < Revision) return 1;
-        if (other.Build < Build) return 1;
 
+        if (other.Minor > Minor) return -1;
+        if (other.Minor < Minor) return 1;
+
+        if (other.Revision < Revision) return 1;
+        if (other.Revision > Revision) return -1;
+
+        if (other.Build < Build) return 1;
+        if (other.Build > Build) return -1;
+        
         return 0;
     }
 

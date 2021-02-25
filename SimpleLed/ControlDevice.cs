@@ -7,6 +7,11 @@ using SimpleLed.RawInput;
 
 namespace SimpleLed
 {
+    public class ControlChannel
+    {
+        public string Name { get; set; }
+        public string Serial { get; set; }
+    }
     public class InteractiveControlDevice : ControlDevice
     {
         public void HandleInput(KeyPressEvent e)
@@ -26,6 +31,7 @@ namespace SimpleLed
     /// </summary>
     public class ControlDevice
     {
+        public ControlChannel ControlChannel { get; set; }
         private class MappedToEventArgs
         {
             public ControlDevice DestinationDevice { get; set; }
@@ -160,7 +166,7 @@ namespace SimpleLed
         /// Name of device the device is connected to.
         /// Used for drivers that support multiple devices, ie Lightning node pros
         /// </summary>
-        public string ConnectedTo { get; set; }
+      //  public string ConnectedTo { get; set; }
         /// <summary>
         /// Device type. This can be free text but recommended to be consumed from the DeviceTypes static to ensure compatibility with hosts.
         /// </summary>
@@ -187,6 +193,26 @@ namespace SimpleLed
         /// </summary>
         [Obsolete]
         public bool SupportsLEDCountOverride { get; set; } = false;
+
+        public string ChannelUniqueId { get; set; }
+
+        private string uniqueIdentifier;
+        public string UniqueIdentifier
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(uniqueIdentifier))
+                {
+                    return $"{this.Driver.GetProperties().ProductId}:{this.ControlChannel?.Serial}:{ChannelUniqueId}";
+                }
+                else
+                {
+                    return uniqueIdentifier;
+                }
+            }
+
+            set => uniqueIdentifier = value;
+        }
 
         private Bitmap productImage = null;
         /// <summary>
@@ -270,35 +296,38 @@ namespace SimpleLed
             }
             else
             {
-                Bitmap bm = new Bitmap(otherDevice.LEDs.Length, 1);
-
-                for (var i = 0; i < otherDevice.LEDs.Length; i++)
+                if (otherDevice?.LEDs != null)
                 {
-                    bm.SetPixel(i, 0,
-                        Color.FromArgb(otherDevice.LEDs[i].Color.Red, otherDevice.LEDs[i].Color.Green,
-                            otherDevice.LEDs[i].Color.Blue));
-                }
+                    Bitmap bm = new Bitmap(otherDevice.LEDs.Length, 1);
 
-                Bitmap bm2 = new Bitmap(bm, new Size(LEDs.Length, 1));
-
-                for (var i = 0; i < LEDs.Length; i++)
-                {
-                    int x = MapIndex(i);
-                    var cl = bm2.GetPixel(i, 0);
-
-                    if (CustomDeviceSpecification != null)
+                    for (var i = 0; i < otherDevice.LEDs.Length; i++)
                     {
-                        var ccl = MapWinColor(cl, CustomDeviceSpecification.RGBOrder);
-                        LEDs[x].Color.Red = ccl.Red;
-                        LEDs[x].Color.Green = ccl.Green;
-                        LEDs[x].Color.Blue = ccl.Blue;
+                        bm.SetPixel(i, 0,
+                            Color.FromArgb(otherDevice.LEDs[i].Color.Red, otherDevice.LEDs[i].Color.Green,
+                                otherDevice.LEDs[i].Color.Blue));
                     }
-                    else
-                    {
 
-                        LEDs[x].Color.Red = cl.R;
-                        LEDs[x].Color.Green = cl.G;
-                        LEDs[x].Color.Blue = cl.B;
+                    Bitmap bm2 = new Bitmap(bm, new Size(LEDs.Length, 1));
+
+                    for (var i = 0; i < LEDs.Length; i++)
+                    {
+                        int x = MapIndex(i);
+                        var cl = bm2.GetPixel(i, 0);
+
+                        if (CustomDeviceSpecification != null)
+                        {
+                            var ccl = MapWinColor(cl, CustomDeviceSpecification.RGBOrder);
+                            LEDs[x].Color.Red = ccl.Red;
+                            LEDs[x].Color.Green = ccl.Green;
+                            LEDs[x].Color.Blue = ccl.Blue;
+                        }
+                        else
+                        {
+
+                            LEDs[x].Color.Red = cl.R;
+                            LEDs[x].Color.Green = cl.G;
+                            LEDs[x].Color.Blue = cl.B;
+                        }
                     }
                 }
             }

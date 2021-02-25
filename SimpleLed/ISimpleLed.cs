@@ -115,7 +115,7 @@ namespace SimpleLed
         /// <summary>
         /// Driver specific UUID
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid InstanceId { get; set; }
 
         /// <summary>
         /// Name of the creator of this driver.
@@ -153,10 +153,9 @@ namespace SimpleLed
         public Action<ColorProfile> SetColorProfileAction { get; set; }
 
         public List<CustomDeviceSpecification> DeviceSpecifications { get; set; }
-
-
+        
         public List<Mapper> Mappers { get; set; }
-
+        
         
         public Action<ControlDevice, CustomDeviceSpecification> SetDeviceOverride { get; set; }
 

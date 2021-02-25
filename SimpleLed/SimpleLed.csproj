@@ -93,6 +93,7 @@
     <Compile Include="SLSConfigData.cs" />
     <Compile Include="SLSManager.cs" />
     <Compile Include="KeyboardHelper.cs" />
+    <Compile Include="ThemeWatcher.cs" />
     <Compile Include="USBModels.cs" />
     <Compile Include="UsbTools.cs" />
   </ItemGroup>

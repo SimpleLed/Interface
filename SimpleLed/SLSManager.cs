@@ -20,6 +20,11 @@ namespace SimpleLed
     /// </summary>
     public class SLSManager
     {
+        public ThemeWatcher.WindowsTheme GetTheme()
+        {
+            return InternalSolids.WindowsTheme;
+        }
+
         public event Events.DeviceChangeEventHandler DeviceAdded;
         public event Events.DeviceChangeEventHandler DeviceRemoved;
 
@@ -416,7 +421,7 @@ namespace SimpleLed
         /// <param name="simpleLed">device to load config for</param>
         public void LoadConfig(ISimpleLedWithConfig simpleLed)
         {
-            string path = configPath + "\\" + simpleLed.GetProperties().Id + "_config.json";
+            string path = configPath + "\\" + simpleLed.GetProperties().ProductId + "_config.json";
             string json = File.ReadAllText(path);
             SLSConfigData data = JsonConvert.DeserializeObject<SLSConfigData>(json, new JsonSerializerSettings
             {
@@ -441,7 +446,7 @@ namespace SimpleLed
                 // $type no longer needs to be first
                 MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
             });
-            string path = configPath + "\\" + simpleLed.GetProperties().Id + "_config.json";
+            string path = configPath + "\\" + simpleLed.GetProperties().ProductId + "_config.json";
             try
             {
                 File.WriteAllText(path, json);

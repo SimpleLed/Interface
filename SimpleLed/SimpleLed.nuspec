@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.10</version>
+    <version>1.1.181</version>
     <title>SimpleLed</title>
     <authors>James Johnston</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/SimpleLed/Interface</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/SimpleLed/Interface/master/simpleLedLogo.png</iconUrl>
     <description>A standardised interface for RGB devices and plugin effects used to drive them.</description>
-    <releaseNotes>1.1.10 - USB Fixes / Build fix</releaseNotes>
+    <releaseNotes>1.1.181 - Fixed ReleaseNumber code</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>RGB LED</tags>
         <dependencies>
