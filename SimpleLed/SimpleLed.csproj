@@ -139,5 +139,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\8x8grid.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\..\Projects\JackNet\MarkdownUI.WPF\MarkdownUI.WPF.csproj">
+      <Project>{0ED1B140-9FA4-44F0-A5BE-3BDDC12270AB}</Project>
+      <Name>MarkdownUI.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

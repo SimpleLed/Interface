@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using MarkdownUI.WPF;
 using SimpleLed.RawInput;
 
 namespace SimpleLed
@@ -72,11 +73,11 @@ namespace SimpleLed
 
 
         /// <summary>
-        /// Get custom UI UserControl. Should encompass driver specifics and device specifics. With the latter, a ControlDevice is passed which is assumed to be the specific device being configured.
+        /// Get custom Markdown UI. Should encompass driver specifics and device specifics. With the latter, a ControlDevice is passed which is assumed to be the specific device being configured.
         /// </summary>
         /// <param name="controlDevice">Device to config</param>
         /// <returns>UserControl containing the custom UI</returns>
-        UserControl GetCustomConfig(ControlDevice controlDevice);
+        MarkdownUIBundle GetCustomConfig(ControlDevice controlDevice);
         /// <summary>
         /// Ascertains if current config is "dirty" and needs to be saved.
         /// </summary>

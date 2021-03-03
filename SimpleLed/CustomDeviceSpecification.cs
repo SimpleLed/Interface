@@ -312,6 +312,8 @@ namespace SimpleLed
         }
     }
 
+
+
     public interface Mapper
     {
         string GetName();

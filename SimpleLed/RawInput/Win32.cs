@@ -195,6 +195,7 @@ namespace SimpleLed.RawInput
             try
             {
                 var deviceKey = RegistryAccess.GetDeviceKey(device);
+                
                 deviceDesc = deviceKey.GetValue("DeviceDesc").ToString();
                 deviceDesc = deviceDesc.Substring(deviceDesc.IndexOf(';') + 1);
             }

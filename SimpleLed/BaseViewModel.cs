@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
+using Newtonsoft.Json;
 
 namespace SimpleLed
 {
@@ -49,7 +50,10 @@ namespace SimpleLed
             RaiseChanges();
         }
 
+        
         private SolidColorBrush primarySolidColorBrush = new SolidColorBrush(Colors.White);
+
+        [JsonIgnore]
         public SolidColorBrush PrimarySolidColorBrush
         {
             get => primarySolidColorBrush;
@@ -61,6 +65,7 @@ namespace SimpleLed
         }
 
         private SolidColorBrush secondarySolidColorBrush = new SolidColorBrush(Colors.Black);
+        [JsonIgnore]
         public SolidColorBrush SecondarySolidColorBrush
         {
             get => secondarySolidColorBrush;
@@ -72,6 +77,7 @@ namespace SimpleLed
         }
 
         private SolidColorBrush accentSolidColorBrush = new SolidColorBrush(Colors.CornflowerBlue);
+        [JsonIgnore]
         public SolidColorBrush AccentSolidColorBrush
         {
             get => accentSolidColorBrush;
@@ -85,45 +91,48 @@ namespace SimpleLed
         private Color primaryColor = Colors.White;
         private Color secondaryColor = Colors.Black;
         private Color accentColor = Colors.CornflowerBlue;
+        [JsonIgnore]
         public Color PrimaryColor
         {
             get => primaryColor;
             set { SetProperty(ref primaryColor, value); }
         }
 
+        [JsonIgnore]
         public Color SecondaryColor
         {
             get => secondaryColor;
             set => SetProperty(ref secondaryColor, value);
         }
 
+        [JsonIgnore]
         public Color AccentColor
         {
             get => accentColor;
             set => SetProperty(ref accentColor, value);
         }
-        
-        public Color PrimaryLow => new Color { A = 0x33, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
-        public Color PrimaryMediumLow => new Color { A = 0x66, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
-        public Color PrimaryMedium => new Color { A = 0x99, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
-        public Color PrimaryMediumHigh => new Color { A = 0xCC, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+
+        [JsonIgnore] public Color PrimaryLow => new Color { A = 0x33, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        [JsonIgnore] public Color PrimaryMediumLow => new Color { A = 0x66, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        [JsonIgnore] public Color PrimaryMedium => new Color { A = 0x99, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
+        [JsonIgnore] public Color PrimaryMediumHigh => new Color { A = 0xCC, R = PrimaryColor.R, G = PrimaryColor.G, B = PrimaryColor.B };
 
 
-        public Color SecondaryLow => new Color { A = 0x33, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
-        public Color SecondaryMediumLow => new Color { A = 0x66, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
-        public Color SecondaryMedium => new Color { A = 0x99, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
-        public Color SecondaryMediumHigh => new Color { A = 0xCC, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        [JsonIgnore] public Color SecondaryLow => new Color { A = 0x33, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        [JsonIgnore] public Color SecondaryMediumLow => new Color { A = 0x66, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        [JsonIgnore] public Color SecondaryMedium => new Color { A = 0x99, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
+        [JsonIgnore] public Color SecondaryMediumHigh => new Color { A = 0xCC, R = SecondaryColor.R, G = SecondaryColor.G, B = SecondaryColor.B };
 
-        public SolidColorBrush PrimaryLowSolidColorBrush => new SolidColorBrush(PrimaryLow);
-        public SolidColorBrush PrimaryMediumLowSolidColorBrush => new SolidColorBrush(PrimaryMediumLow);
-        public SolidColorBrush PrimaryMediumSolidColorBrush => new SolidColorBrush(PrimaryMedium);
-        public SolidColorBrush PrimaryMediumHighSolidColorBrush => new SolidColorBrush(PrimaryMediumHigh);
+        [JsonIgnore] public SolidColorBrush PrimaryLowSolidColorBrush => new SolidColorBrush(PrimaryLow);
+        [JsonIgnore] public SolidColorBrush PrimaryMediumLowSolidColorBrush => new SolidColorBrush(PrimaryMediumLow);
+        [JsonIgnore] public SolidColorBrush PrimaryMediumSolidColorBrush => new SolidColorBrush(PrimaryMedium);
+        [JsonIgnore] public SolidColorBrush PrimaryMediumHighSolidColorBrush => new SolidColorBrush(PrimaryMediumHigh);
 
 
-        public SolidColorBrush SecondaryLowSolidColorBrush => new SolidColorBrush(SecondaryLow);
-        public SolidColorBrush SecondaryMediumLowSolidColorBrush => new SolidColorBrush(SecondaryMediumLow);
-        public SolidColorBrush SecondaryMediumSolidColorBrush => new SolidColorBrush(SecondaryMedium);
-        public SolidColorBrush SecondaryMediumHighSolidColorBrush => new SolidColorBrush(SecondaryMediumHigh);
+        [JsonIgnore] public SolidColorBrush SecondaryLowSolidColorBrush => new SolidColorBrush(SecondaryLow);
+        [JsonIgnore] public SolidColorBrush SecondaryMediumLowSolidColorBrush => new SolidColorBrush(SecondaryMediumLow);
+        [JsonIgnore] public SolidColorBrush SecondaryMediumSolidColorBrush => new SolidColorBrush(SecondaryMedium);
+        [JsonIgnore] public SolidColorBrush SecondaryMediumHighSolidColorBrush => new SolidColorBrush(SecondaryMediumHigh);
 
 
         private void RaiseChanges()
@@ -152,6 +161,7 @@ namespace SimpleLed
 
         private ThemeWatcher.WindowsTheme currentTheme;
 
+        [JsonIgnore]
         public ThemeWatcher.WindowsTheme CurrentTheme
         {
             get => currentTheme;

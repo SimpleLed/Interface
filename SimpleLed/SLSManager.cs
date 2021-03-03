@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using SimpleLed.RawInput;
 using System.Management;
 using HardwareHelperLib;
+using System.Windows.Media;
 
 namespace SimpleLed
 {
@@ -20,6 +21,14 @@ namespace SimpleLed
     /// </summary>
     public class SLSManager
     {
+        public string AppName { get; set; } 
+        public string AppAuthor { get; set; } 
+
+        public Color GetAccent()
+        {
+            return InternalSolids.themeWatcher.CurrentAccent;
+        }
+
         public ThemeWatcher.WindowsTheme GetTheme()
         {
             return InternalSolids.WindowsTheme;
@@ -36,8 +45,11 @@ namespace SimpleLed
         /// Initialise a new instance of the SLSManager.
         /// </summary>
         /// <param name="cfgPath">Path where configs are stored by the drivers</param>
-        public SLSManager(string cfgPath)
+        public SLSManager(string cfgPath,string appName = "SimpleLed", string appAuthor = "James Johnston")
         {
+            AppName = appName;
+            AppAuthor = appAuthor;
+
             Drivers.CollectionChanged += DriversOnCollectionChanged;
 
             DummyForm dummy = null;

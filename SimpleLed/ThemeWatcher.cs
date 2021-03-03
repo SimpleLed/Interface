@@ -131,5 +131,14 @@ namespace SimpleLed
                 return theme;
             }
         }
+
+        public static Color GetAccent()
+        {
+            var acnt = (SolidColorBrush)SystemParameters.WindowGlassBrush;
+            acnt.Freeze();
+            var clr = acnt.Color;
+
+            return clr;
+        }
     }
 }
