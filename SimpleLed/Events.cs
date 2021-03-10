@@ -19,5 +19,6 @@ namespace SimpleLed
         }
 
         public delegate void DeviceChangeEventHandler(object sender, DeviceChangeEventArgs e);
+
     }
 }

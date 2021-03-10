@@ -177,7 +177,7 @@ namespace SimpleLed
                         {
                             simpleLed.InterestedUSBChange(interestedAdd.VID, interestedAdd.HID.Value, true);
                         }
-                        catch
+                        catch (Exception eeee)
                         {
                         }
                     }
@@ -434,14 +434,23 @@ namespace SimpleLed
         public void LoadConfig(ISimpleLedWithConfig simpleLed)
         {
             string path = configPath + "\\" + simpleLed.GetProperties().ProductId + "_config.json";
-            string json = File.ReadAllText(path);
-            SLSConfigData data = JsonConvert.DeserializeObject<SLSConfigData>(json, new JsonSerializerSettings
+            Console.WriteLine(path);
+            try
             {
-                TypeNameHandling = TypeNameHandling.All,
-                // $type no longer needs to be first
-                MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
-            });
-            simpleLed.PutConfig(data);
+                string json = File.ReadAllText(path);
+                SLSConfigData data = JsonConvert.DeserializeObject<SLSConfigData>(json, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    // $type no longer needs to be first
+                    MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
+                });
+                Console.WriteLine("Putting config");
+                simpleLed.PutConfig(data);
+                Console.WriteLine("Put config");
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         /// <summary>

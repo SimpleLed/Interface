@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Controls;
+using Newtonsoft.Json;
 using SimpleLed.RawInput;
 
 namespace SimpleLed
@@ -99,7 +100,8 @@ namespace SimpleLed
         /// <summary>
         /// if this device has 2d support, this signifies the width of the 2d grid
         /// </summary>
-        public int GridWidth {
+        public int GridWidth
+        {
             get
             {
                 if (CustomDeviceSpecification != null)
@@ -139,7 +141,8 @@ namespace SimpleLed
         /// <summary>
         /// Name of device
         /// </summary>
-        public string Name {
+        public string Name
+        {
             get
             {
                 return name;
@@ -153,7 +156,8 @@ namespace SimpleLed
                     return name;
                 }
             }
-            set=>name=value; }
+            set => name = value;
+        }
 
         public OverrideSupport OverrideSupport { get; set; } = OverrideSupport.None;
 
@@ -174,10 +178,43 @@ namespace SimpleLed
         /// <summary>
         /// The driver that this device belongs to.
         /// </summary>
-        public ISimpleLed Driver { get; set; }
+        private ISimpleLed driver;
+        [JsonIgnore]
+        public ISimpleLed Driver
+        {
+            get => driver;
+            set
+            {
+                driver = value;
+                DriverName = driver?.Name();
+                DriverProperties = driver?.GetProperties();
+            }
+        }
+
+        private DriverProperties driverProperties;
+
+        public DriverProperties DriverProperties
+        {
+            get
+            {
+                if (Driver != null)
+                {
+                    return Driver.GetProperties();
+                }
+                else
+                {
+                    return driverProperties;
+                }
+            }
+
+            set => driverProperties = value;
+        }
+
+        public string DriverName { get; set; }
         /// <summary>
         /// Array of LedUnits provided by this device
         /// </summary>
+        [JsonIgnore]
         public LedUnit[] LEDs { get; set; }
 
         /// <summary>
@@ -218,7 +255,9 @@ namespace SimpleLed
         /// <summary>
         /// 256x192 Bitmap of device
         /// </summary>
-        public Bitmap ProductImage {
+        [JsonIgnore]
+        public Bitmap ProductImage
+        {
             get
             {
                 if (CustomDeviceSpecification != null)
@@ -229,7 +268,9 @@ namespace SimpleLed
                 {
                     return productImage;
                 }
-            } set=>productImage=value; }
+            }
+            set => productImage = value;
+        }
 
         private readonly List<MappedListItem> mappedDevices = new List<MappedListItem>();
 
@@ -352,7 +393,7 @@ namespace SimpleLed
         {
             switch (order)
             {
-                case RGBOrder.RGB: return new LEDColor(cl.R,cl.G,cl.B);
+                case RGBOrder.RGB: return new LEDColor(cl.R, cl.G, cl.B);
                 case RGBOrder.RBG: return new LEDColor(cl.R, cl.B, cl.G);
                 case RGBOrder.GBR: return new LEDColor(cl.G, cl.B, cl.R);
                 case RGBOrder.GRB: return new LEDColor(cl.G, cl.R, cl.B);
@@ -360,7 +401,7 @@ namespace SimpleLed
                 case RGBOrder.BRG: return new LEDColor(cl.B, cl.R, cl.G);
             }
 
-            return new LEDColor(cl.R, cl.G, cl.B); 
+            return new LEDColor(cl.R, cl.G, cl.B);
         }
 
         /// <summary>
@@ -393,7 +434,7 @@ namespace SimpleLed
                     else
                     {
                         setMapper = this.CustomDeviceSpecification.MapperName;
-                        currentMapper = (Mapper) Activator.CreateInstance(d[setMapper]);
+                        currentMapper = (Mapper)Activator.CreateInstance(d[setMapper]);
                     }
                 }
             }
@@ -413,7 +454,7 @@ namespace SimpleLed
             }
 
             Bitmap bm2 = new Bitmap(bm, new Size(GridWidth, GridHeight));
-            
+
             for (int y = 0; y < GridHeight; y++)
             {
                 for (int x = 0; x < GridWidth; x++)

@@ -195,9 +195,15 @@ namespace SimpleLed.RawInput
             try
             {
                 var deviceKey = RegistryAccess.GetDeviceKey(device);
-                
-                deviceDesc = deviceKey.GetValue("DeviceDesc").ToString();
-                deviceDesc = deviceDesc.Substring(deviceDesc.IndexOf(';') + 1);
+                if (deviceKey != null)
+                {
+                    deviceDesc = deviceKey.GetValue("DeviceDesc").ToString();
+                    deviceDesc = deviceDesc.Substring(deviceDesc.IndexOf(';') + 1);
+                }
+                else
+                {
+                    deviceDesc = "Device is malformed unable to look up in the registry";
+                }
             }
             catch (Exception)
             {
